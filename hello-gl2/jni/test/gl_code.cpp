@@ -22,6 +22,8 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 
+#include "ktx.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -44,14 +46,19 @@ static void checkGlError(const char* op) {
 
 static const char gVertexShader[] = 
     "attribute vec4 vPosition;\n"
+	"varying vec2 v;\n"
     "void main() {\n"
+    "  v = vPosition.xy * 0.5 + 0.5;\n"
     "  gl_Position = vPosition;\n"
     "}\n";
 
-static const char gFragmentShader[] = 
+static const char gFragmentShader[] =
+	"varying vec2 v;\n"
     "precision mediump float;\n"
+	"uniform sampler2D tex;\n"
     "void main() {\n"
-    "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
+    // "  gl_FragColor = texture2D(tex, v);\n"
+	"  gl_FragColor = vec4(v, 0.0, 1.0);\n"
     "}\n";
 
 GLuint loadShader(GLenum shaderType, const char* pSource) {
@@ -140,6 +147,27 @@ bool setupGraphics(int w, int h) {
 
     glViewport(0, 0, w, h);
     checkGlError("glViewport");
+
+	GLuint texture = 0;
+	GLenum target;
+	GLenum glerror;
+	GLboolean isMipmapped;
+	KTX_error_code ktxerror = ktxLoadTextureN("10001.ktx", &texture, &target, NULL, &isMipmapped, &glerror, 0, NULL);
+	if (ktxerror == KTX_SUCCESS && target == GL_TEXTURE_2D)
+	{
+		// glBindTexture(target, texture);
+		if (isMipmapped) glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+		else             glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		GLint loc = glGetUniformLocation(gProgram, "tex");
+		glUniform1i(loc, 0);
+	}
+	else
+	{
+		LOGE("error load ktx texture, %d, 0x%X", ktxerror, target);
+	}
+
     return true;
 }
 
