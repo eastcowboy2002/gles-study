@@ -1,18 +1,20 @@
 #include "SDL_main.h"
 #include "SDL.h"
-#include "SDL_opengles2.h"
 
 #include "ktx.h"
+
+#ifdef _WIN32
+#include "SDL_opengl.h"
+#else
+#include "SDL_opengles2.h"
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#include <jni.h>
-#include <android/log.h>
-#define  LOG_TAG    "libgl2jni"
-#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
-#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+#define LOGI(...) SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
+#define LOGE(...) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
 
 static void printGLString(const char *name, GLenum s) {
     const char *v = (const char *) glGetString(s);
@@ -27,6 +29,11 @@ static void checkGlError(const char* op) {
 }
 
 static const char gVertexShader[] =
+#ifdef WIN32
+    "#define highp\n"
+    "#define mediump\n"
+    "#define lowp\n"
+#endif
     "attribute vec4 vPosition;\n"
     "varying highp vec2 vTexcoord;\n"
     "void main() {\n"
@@ -36,6 +43,11 @@ static const char gVertexShader[] =
     "}\n";
 
 static const char gFragmentShader[] =
+#ifdef WIN32
+    "#define highp\n"
+    "#define mediump\n"
+    "#define lowp\n"
+#endif
     "varying highp vec2 vTexcoord;\n"
     "uniform lowp sampler2D tex;\n"
     // "precision mediump float;\n"
@@ -239,7 +251,12 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
-	SDL_Window* window = SDL_CreateWindow("gles study", 0, 0, 0, 0, SDL_WINDOW_FULLSCREEN | SDL_WINDOW_OPENGL);
+#ifdef WIN32
+	SDL_Window* window = SDL_CreateWindow("gles study", 100, 100, 854, 480, SDL_WINDOW_OPENGL);
+#else
+    SDL_Window* window = SDL_CreateWindow("gles study", 0, 0, 0, 0, SDL_WINDOW_FULLSCREEN | SDL_WINDOW_OPENGL);
+#endif
+
 	if (!window)
 	{
 		SDL_Log("create window failed: %s", SDL_GetError());
@@ -254,6 +271,10 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 	}
 
 	SDL_GL_MakeCurrent(window, context);
+
+#ifdef _WIN32
+    glewInit();
+#endif
 
 	int width, height;
 	SDL_GetWindowSize(window, &width, &height);

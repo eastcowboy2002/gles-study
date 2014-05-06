@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "main", "..\glesstudy\jni\main\main.vcxproj", "{840B8FD2-5C1C-430B-9766-4E7335228A60}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DA2A9F2F-C9F0-4637-9327-9D5701C45E1B} = {DA2A9F2F-C9F0-4637-9327-9D5701C45E1B}
+		{6C18AE52-9ECF-4F23-9153-74F66DFA1D35} = {6C18AE52-9ECF-4F23-9153-74F66DFA1D35}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libktx", "..\glesstudy\jni\libktx\libktx.vcxproj", "{6C18AE52-9ECF-4F23-9153-74F66DFA1D35}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SDL", "..\glesstudy\jni\SDL\SDL.vcxproj", "{DA2A9F2F-C9F0-4637-9327-9D5701C45E1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{840B8FD2-5C1C-430B-9766-4E7335228A60}.Debug|Win32.ActiveCfg = Debug|Win32
+		{840B8FD2-5C1C-430B-9766-4E7335228A60}.Debug|Win32.Build.0 = Debug|Win32
+		{840B8FD2-5C1C-430B-9766-4E7335228A60}.Release|Win32.ActiveCfg = Release|Win32
+		{840B8FD2-5C1C-430B-9766-4E7335228A60}.Release|Win32.Build.0 = Release|Win32
+		{6C18AE52-9ECF-4F23-9153-74F66DFA1D35}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6C18AE52-9ECF-4F23-9153-74F66DFA1D35}.Debug|Win32.Build.0 = Debug|Win32
+		{6C18AE52-9ECF-4F23-9153-74F66DFA1D35}.Release|Win32.ActiveCfg = Release|Win32
+		{6C18AE52-9ECF-4F23-9153-74F66DFA1D35}.Release|Win32.Build.0 = Release|Win32
+		{DA2A9F2F-C9F0-4637-9327-9D5701C45E1B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA2A9F2F-C9F0-4637-9327-9D5701C45E1B}.Debug|Win32.Build.0 = Debug|Win32
+		{DA2A9F2F-C9F0-4637-9327-9D5701C45E1B}.Release|Win32.ActiveCfg = Release|Win32
+		{DA2A9F2F-C9F0-4637-9327-9D5701C45E1B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

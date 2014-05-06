@@ -1,3 +1,13 @@
 /glesstudy/bin
 /glesstudy/obj
 /glesstudy/libs
+/glesstudy/jni/SDL/Debug
+/glesstudy/jni/SDL/Release
+/glesstudy/jni/libktx/Debug
+/glesstudy/jni/libktx/Release
+/glesstudy/jni/main/Debug
+/glesstudy/jni/main/Release
+/msvc/Debug
+/msvc/Release
+/msvc/gles_study.sdf
+/msvc/gles_study.opensdf

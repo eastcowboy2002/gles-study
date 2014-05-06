@@ -146,7 +146,7 @@ typedef unsigned int uintptr_t;
 
 /* Enable various audio drivers */
 #define SDL_AUDIO_DRIVER_DSOUND 1
-#define SDL_AUDIO_DRIVER_XAUDIO2    1
+#define SDL_AUDIO_DRIVER_XAUDIO2    0
 #define SDL_AUDIO_DRIVER_WINMM  1
 #define SDL_AUDIO_DRIVER_DISK   1
 #define SDL_AUDIO_DRIVER_DUMMY  1
@@ -186,13 +186,13 @@ typedef unsigned int uintptr_t;
 #define SDL_VIDEO_RENDER_OGL    1
 #endif
 #ifndef SDL_VIDEO_RENDER_OGL_ES2
-#define SDL_VIDEO_RENDER_OGL_ES2    1
+#define SDL_VIDEO_RENDER_OGL_ES2    0
 #endif
 #ifndef SDL_VIDEO_OPENGL_ES2
-#define SDL_VIDEO_OPENGL_ES2    1
+#define SDL_VIDEO_OPENGL_ES2    0
 #endif
 #ifndef SDL_VIDEO_OPENGL_EGL
-#define SDL_VIDEO_OPENGL_EGL    1
+#define SDL_VIDEO_OPENGL_EGL    0
 #endif
 
 
