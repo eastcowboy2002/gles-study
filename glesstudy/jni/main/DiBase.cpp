@@ -77,7 +77,6 @@ namespace di
     }
 
 
-    // TODO: 这是VisualStudio写法。GCC可以用C++11的标准写法
 #ifdef _WIN32
     static __declspec(thread) FuncCallInfoStack* s_threadFuncCallInfoStack;
 #else
