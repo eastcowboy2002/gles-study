@@ -88,6 +88,8 @@
     <None Include="Android.mk" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DiBase.cpp" />
+    <ClCompile Include="DiResource.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +99,13 @@
     <ProjectReference Include="..\SDL\SDL.vcxproj">
       <Project>{da2a9f2f-c9f0-4637-9327-9d5701c45e1b}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DiBase.h" />
+    <ClInclude Include="DiResource.h" />
+    <ClInclude Include="di_gl_header.h" />
+    <ClInclude Include="di_mat.h" />
+    <ClInclude Include="di_vec.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

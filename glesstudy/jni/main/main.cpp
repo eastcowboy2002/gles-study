@@ -1,13 +1,7 @@
 #include "SDL_main.h"
 #include "SDL.h"
 
-#include "ktx.h"
-
-#ifdef _WIN32
-#include "SDL_opengl.h"
-#else
-#include "SDL_opengles2.h"
-#endif
+#include "di_gl_header.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -239,6 +233,10 @@ void renderFrame() {
 
 int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 {
+    DI_SAVE_CALLSTACK();
+
+    // TODO: add signal handler here
+
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
