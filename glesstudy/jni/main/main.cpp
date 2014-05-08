@@ -29,10 +29,10 @@ static const char gVertexShader[] =
     "#define lowp\n"
 #endif
     "attribute vec4 vPosition;\n"
-    "varying highp vec2 vTexcoord;\n"
+    // "varying highp vec2 vTexcoord;\n"
     "void main() {\n"
     // "  vTexcoord = vPosition.xy * 0.5 + 0.5;\n"
-    "  vTexcoord = vec2(vPosition.x * 0.5 + 0.5, 0.5 - vPosition.y * 0.5);\n"
+    // "  vTexcoord = vec2(vPosition.x * 0.5 + 0.5, 0.5 - vPosition.y * 0.5);\n"
     "  gl_Position = vPosition;\n"
     "}\n";
 
@@ -42,14 +42,14 @@ static const char gFragmentShader[] =
     "#define mediump\n"
     "#define lowp\n"
 #endif
-    "varying highp vec2 vTexcoord;\n"
-    "uniform lowp sampler2D tex;\n"
+    // "varying highp vec2 vTexcoord;\n"
+    // "uniform lowp sampler2D tex;\n"
     // "precision mediump float;\n"
     "void main() {\n"
-    "  gl_FragColor = texture2D(tex, vTexcoord);\n"
+    // "  gl_FragColor = texture2D(tex, vTexcoord);\n"
 	// "  gl_FragColor = texture2D(tex, vec2(0.5, 0.5));\n"
     // "  gl_FragColor = vec4(vTexcoord, 0.0, 1.0);\n"
-    // "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
+    "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
     "}\n";
 
 GLuint loadShader(GLenum shaderType, const char* pSource) {
@@ -116,76 +116,76 @@ GLuint createProgram(const char* pVertexSource, const char* pFragmentSource) {
     return program;
 }
 
-GLuint loadKtxTexture(const char* filename, int* width = NULL, int* height = NULL)
-{
-	SDL_RWops* rw = SDL_RWFromFile(filename, "rb");
-	if (!rw)
-	{
-		SDL_Log("loadKtxTexture '%s' failed. cannot open file", filename);
-		return 0;
-	}
-
-	GLsizei size = SDL_RWsize(rw);
-
-	void* mem = SDL_malloc(size);
-	if (!size)
-	{
-		SDL_RWclose(rw);
-		SDL_Log("loadKtxTexture '%s' failed. malloc failed", filename);
-		return 0;
-	}
-
-	if (SDL_RWread(rw, mem, size, 1) != 1)
-	{
-		SDL_free(mem);
-		SDL_RWclose(rw);
-		SDL_Log("loadKtxTexture '%s' failed. read file failed", filename);
-		return 0;
-	}
-
-	GLuint tex;
-	GLenum target;
-	GLenum glerr;
-	GLboolean isMipmap;
-	KTX_dimensions dimensions;
-	KTX_error_code ktxErr = ktxLoadTextureM(mem, size, &tex, &target, &dimensions, &isMipmap, &glerr, 0, NULL);
-
-	SDL_free(mem);
-	mem = NULL;
-	SDL_RWclose(rw);
-	rw = NULL;
-
-	if (ktxErr != KTX_SUCCESS || glerr != GL_NO_ERROR)
-	{
-		SDL_Log("loadKtxTexture '%s' failed. ktx error = %d, gl error = 0x%X", filename, ktxErr, glerr);
-		return 0;
-	}
-
-	if (target != GL_TEXTURE_2D)
-	{
-		glBindTexture(target, 0);
-		glDeleteTextures(1, &target);
-		SDL_Log("loadKtxTexture '%s' failed. not GL_TEXTURE_2D", filename);
-		return 0;
-	}
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, isMipmap ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	if (width)
-	{
-		*width = dimensions.width;
-	}
-
-	if (height)
-	{
-		*height = dimensions.height;
-	}
-
-	return tex;
-}
+// GLuint loadKtxTexture(const char* filename, int* width = NULL, int* height = NULL)
+// {
+// 	SDL_RWops* rw = SDL_RWFromFile(filename, "rb");
+// 	if (!rw)
+// 	{
+// 		SDL_Log("loadKtxTexture '%s' failed. cannot open file", filename);
+// 		return 0;
+// 	}
+// 
+// 	GLsizei size = SDL_RWsize(rw);
+// 
+// 	void* mem = SDL_malloc(size);
+// 	if (!size)
+// 	{
+// 		SDL_RWclose(rw);
+// 		SDL_Log("loadKtxTexture '%s' failed. malloc failed", filename);
+// 		return 0;
+// 	}
+// 
+// 	if (SDL_RWread(rw, mem, size, 1) != 1)
+// 	{
+// 		SDL_free(mem);
+// 		SDL_RWclose(rw);
+// 		SDL_Log("loadKtxTexture '%s' failed. read file failed", filename);
+// 		return 0;
+// 	}
+// 
+// 	GLuint tex;
+// 	GLenum target;
+// 	GLenum glerr;
+// 	GLboolean isMipmap;
+// 	KTX_dimensions dimensions;
+// 	KTX_error_code ktxErr = ktxLoadTextureM(mem, size, &tex, &target, &dimensions, &isMipmap, &glerr, 0, NULL);
+// 
+// 	SDL_free(mem);
+// 	mem = NULL;
+// 	SDL_RWclose(rw);
+// 	rw = NULL;
+// 
+// 	if (ktxErr != KTX_SUCCESS || glerr != GL_NO_ERROR)
+// 	{
+// 		SDL_Log("loadKtxTexture '%s' failed. ktx error = %d, gl error = 0x%X", filename, ktxErr, glerr);
+// 		return 0;
+// 	}
+// 
+// 	if (target != GL_TEXTURE_2D)
+// 	{
+// 		glBindTexture(target, 0);
+// 		glDeleteTextures(1, &target);
+// 		SDL_Log("loadKtxTexture '%s' failed. not GL_TEXTURE_2D", filename);
+// 		return 0;
+// 	}
+// 
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, isMipmap ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+// 
+// 	if (width)
+// 	{
+// 		*width = dimensions.width;
+// 	}
+// 
+// 	if (height)
+// 	{
+// 		*height = dimensions.height;
+// 	}
+// 
+// 	return tex;
+// }
 
 GLuint gProgram;
 GLuint gvPositionHandle;
@@ -215,7 +215,7 @@ bool setupGraphics(int w, int h) {
 const GLfloat gTriangleVertices[] = { 0.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f };
 
 void renderFrame() {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     checkGlError("glClearColor");
     glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     checkGlError("glClear");
@@ -238,6 +238,7 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
     // TODO: add signal handler here
 
 	SDL_Init(SDL_INIT_EVERYTHING);
+	LOGI("SDL_Init OK");
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 6);
@@ -248,6 +249,7 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	LOGI("SDL_GL_SetAttribute OK");
 
 #ifdef WIN32
 	SDL_Window* window = SDL_CreateWindow("gles study", 100, 100, 854, 480, SDL_WINDOW_OPENGL);
@@ -261,12 +263,16 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 		abort();
 	}
 
+	LOGI("SDL_CreateWindow OK");
+
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 	if (!context)
 	{
 		SDL_Log("create context failed: %s", SDL_GetError());
 		abort();
 	}
+
+	LOGI("SDL_GL_CreateContext OK");
 
 	SDL_GL_MakeCurrent(window, context);
 
@@ -279,23 +285,23 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 	setupGraphics(width, height);
 	checkGlError("setupGraphics");
 
-	if (loadKtxTexture("10001.ktx") == 0)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "loadKtxTexture failed");
-		abort();
-	}
+//	if (loadKtxTexture("10001.ktx") == 0)
+//	{
+//		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "loadKtxTexture failed");
+//		abort();
+//	}
 
 	SDL_Log("gProgram = %d", gProgram);
 
 	glUseProgram(gProgram);
 	checkGlError("glUseProgram");
 
-	GLint loc = glGetUniformLocation(gProgram, "tex");
-	SDL_Log("loc = %d", loc);
-	checkGlError("glGetUniformLocation1");
-
-	glUniform1i(loc, 0);
-	checkGlError("glUniform1i");
+//	GLint loc = glGetUniformLocation(gProgram, "tex");
+//	SDL_Log("loc = %d", loc);
+//	checkGlError("glGetUniformLocation1");
+//
+//	glUniform1i(loc, 0);
+//	checkGlError("glUniform1i");
 
 	SDL_Event ev;
 	bool willQuit = false;
@@ -306,14 +312,22 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 			if (ev.type == SDL_QUIT)
 			{
 				willQuit = true;
+				goto end_of_mainloop;
 			}
 		}
 
 		// glClear(GL_COLOR_BUFFER_BIT);
 		renderFrame();
 		SDL_GL_SwapWindow(window);
+
+		SDL_WaitEvent(NULL);
 	}
 
+end_of_mainloop:
+	LOGI("prepare for SDL_Quit");
+
 	SDL_Quit();
+
+	LOGI("SDL_Quit OK");
 	return 0;
 }
