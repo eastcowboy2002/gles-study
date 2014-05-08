@@ -13,8 +13,6 @@ LOCAL_SRC_FILES := \
     $(wildcard $(LOCAL_PATH)/lib/*.cxx) \
     )
 
-LOCAL_LDLIBS := -ldl -lGLESv2 -llog -landroid
-
 LOCAL_CFLAGS := -DKTX_OPENGL_ES2=1 -DSUPPORT_SOFTWARE_ETC_UNPACK=1
 
 include $(BUILD_STATIC_LIBRARY)
