@@ -280,6 +280,7 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
     DI_SAVE_CALLSTACK();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
+	LOGI("SDL_Init OK");
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 6);
@@ -290,6 +291,7 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	LOGI("SDL_GL_SetAttribute OK");
 
 #ifdef WIN32
 	SDL_Window* window = SDL_CreateWindow("gles study", 100, 100, 854, 480, SDL_WINDOW_OPENGL);
@@ -303,12 +305,16 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 		abort();
 	}
 
+	LOGI("SDL_CreateWindow OK");
+
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 	if (!context)
 	{
 		SDL_Log("create context failed: %s", SDL_GetError());
 		abort();
 	}
+
+	LOGI("SDL_GL_CreateContext OK");
 
 	SDL_GL_MakeCurrent(window, context);
 
