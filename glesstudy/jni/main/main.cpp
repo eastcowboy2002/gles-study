@@ -1,5 +1,6 @@
 #include "SDL_main.h"
 #include "SDL.h"
+#include "SDL_image.h"
 
 #include "di_gl_header.h"
 
@@ -332,6 +333,52 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 // 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "loadKtxTexture failed");
 // 		abort();
 // 	}
+
+	SDL_Surface* t = IMG_Load("main_bg.webp");
+	if (t)
+	{
+		SDL_Log("IMG_Load OK");
+
+		GLuint textureObjOpenGLlogo;
+		glGenTextures(1, &textureObjOpenGLlogo);
+
+		glBindTexture(GL_TEXTURE_2D, textureObjOpenGLlogo);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		SDL_Log("image format: %d (0x%X)", t->format, t->format);
+
+		bool needLock = SDL_MUSTLOCK(t);
+		if (needLock)
+		{
+			SDL_LockSurface(t);
+		}
+
+		if (t->format->format == SDL_PIXELFORMAT_RGBA8888)
+		{
+			SDL_Log("format RGBA");
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t->w, t->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, t->pixels);
+		}
+		else if (t->format->format == SDL_PIXELFORMAT_RGB888)
+		{
+			SDL_Log("format RGB");
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t->w, t->h, 0, GL_RGB, GL_UNSIGNED_BYTE, t->pixels);
+		}
+
+		if (needLock)
+		{
+			SDL_UnlockSurface(t);
+		}
+
+		SDL_FreeSurface(t);
+	}
+	else
+	{
+		SDL_Log("IMG_Load failed");
+		abort();
+	}
 
 	SDL_Log("gProgram = %d", gProgram);
 
