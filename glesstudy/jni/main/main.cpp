@@ -7,6 +7,10 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include <signal.h>
+
+using namespace di;
+
 #define LOGI(...) SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
 #define LOGE(...) SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
 
@@ -29,10 +33,10 @@ static const char gVertexShader[] =
     "#define lowp\n"
 #endif
     "attribute vec4 vPosition;\n"
-    "varying highp vec2 vTexcoord;\n"
+    // "varying highp vec2 vTexcoord;\n"
     "void main() {\n"
     // "  vTexcoord = vPosition.xy * 0.5 + 0.5;\n"
-    "  vTexcoord = vec2(vPosition.x * 0.5 + 0.5, 0.5 - vPosition.y * 0.5);\n"
+    // "  vTexcoord = vec2(vPosition.x * 0.5 + 0.5, 0.5 - vPosition.y * 0.5);\n"
     "  gl_Position = vPosition;\n"
     "}\n";
 
@@ -42,17 +46,19 @@ static const char gFragmentShader[] =
     "#define mediump\n"
     "#define lowp\n"
 #endif
-    "varying highp vec2 vTexcoord;\n"
-    "uniform lowp sampler2D tex;\n"
+    // "varying highp vec2 vTexcoord;\n"
+    // "uniform lowp sampler2D tex;\n"
     // "precision mediump float;\n"
     "void main() {\n"
-    "  gl_FragColor = texture2D(tex, vTexcoord);\n"
+    // "  gl_FragColor = texture2D(tex, vTexcoord);\n"
 	// "  gl_FragColor = texture2D(tex, vec2(0.5, 0.5));\n"
     // "  gl_FragColor = vec4(vTexcoord, 0.0, 1.0);\n"
-    // "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
+    "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
     "}\n";
 
 GLuint loadShader(GLenum shaderType, const char* pSource) {
+    DI_SAVE_CALLSTACK();
+
     GLuint shader = glCreateShader(shaderType);
     if (shader) {
         glShaderSource(shader, 1, &pSource, NULL);
@@ -79,6 +85,8 @@ GLuint loadShader(GLenum shaderType, const char* pSource) {
 }
 
 GLuint createProgram(const char* pVertexSource, const char* pFragmentSource) {
+    DI_SAVE_CALLSTACK();
+
     GLuint vertexShader = loadShader(GL_VERTEX_SHADER, pVertexSource);
     if (!vertexShader) {
         return 0;
@@ -116,81 +124,83 @@ GLuint createProgram(const char* pVertexSource, const char* pFragmentSource) {
     return program;
 }
 
-GLuint loadKtxTexture(const char* filename, int* width = NULL, int* height = NULL)
-{
-	SDL_RWops* rw = SDL_RWFromFile(filename, "rb");
-	if (!rw)
-	{
-		SDL_Log("loadKtxTexture '%s' failed. cannot open file", filename);
-		return 0;
-	}
-
-	GLsizei size = SDL_RWsize(rw);
-
-	void* mem = SDL_malloc(size);
-	if (!size)
-	{
-		SDL_RWclose(rw);
-		SDL_Log("loadKtxTexture '%s' failed. malloc failed", filename);
-		return 0;
-	}
-
-	if (SDL_RWread(rw, mem, size, 1) != 1)
-	{
-		SDL_free(mem);
-		SDL_RWclose(rw);
-		SDL_Log("loadKtxTexture '%s' failed. read file failed", filename);
-		return 0;
-	}
-
-	GLuint tex;
-	GLenum target;
-	GLenum glerr;
-	GLboolean isMipmap;
-	KTX_dimensions dimensions;
-	KTX_error_code ktxErr = ktxLoadTextureM(mem, size, &tex, &target, &dimensions, &isMipmap, &glerr, 0, NULL);
-
-	SDL_free(mem);
-	mem = NULL;
-	SDL_RWclose(rw);
-	rw = NULL;
-
-	if (ktxErr != KTX_SUCCESS || glerr != GL_NO_ERROR)
-	{
-		SDL_Log("loadKtxTexture '%s' failed. ktx error = %d, gl error = 0x%X", filename, ktxErr, glerr);
-		return 0;
-	}
-
-	if (target != GL_TEXTURE_2D)
-	{
-		glBindTexture(target, 0);
-		glDeleteTextures(1, &target);
-		SDL_Log("loadKtxTexture '%s' failed. not GL_TEXTURE_2D", filename);
-		return 0;
-	}
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, isMipmap ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	if (width)
-	{
-		*width = dimensions.width;
-	}
-
-	if (height)
-	{
-		*height = dimensions.height;
-	}
-
-	return tex;
-}
+// GLuint loadKtxTexture(const char* filename, int* width = NULL, int* height = NULL)
+// {
+// 	SDL_RWops* rw = SDL_RWFromFile(filename, "rb");
+// 	if (!rw)
+// 	{
+// 		SDL_Log("loadKtxTexture '%s' failed. cannot open file", filename);
+// 		return 0;
+// 	}
+// 
+// 	GLsizei size = SDL_RWsize(rw);
+// 
+// 	void* mem = SDL_malloc(size);
+// 	if (!size)
+// 	{
+// 		SDL_RWclose(rw);
+// 		SDL_Log("loadKtxTexture '%s' failed. malloc failed", filename);
+// 		return 0;
+// 	}
+// 
+// 	if (SDL_RWread(rw, mem, size, 1) != 1)
+// 	{
+// 		SDL_free(mem);
+// 		SDL_RWclose(rw);
+// 		SDL_Log("loadKtxTexture '%s' failed. read file failed", filename);
+// 		return 0;
+// 	}
+// 
+// 	GLuint tex;
+// 	GLenum target;
+// 	GLenum glerr;
+// 	GLboolean isMipmap;
+// 	KTX_dimensions dimensions;
+// 	KTX_error_code ktxErr = ktxLoadTextureM(mem, size, &tex, &target, &dimensions, &isMipmap, &glerr, 0, NULL);
+// 
+// 	SDL_free(mem);
+// 	mem = NULL;
+// 	SDL_RWclose(rw);
+// 	rw = NULL;
+// 
+// 	if (ktxErr != KTX_SUCCESS || glerr != GL_NO_ERROR)
+// 	{
+// 		SDL_Log("loadKtxTexture '%s' failed. ktx error = %d, gl error = 0x%X", filename, ktxErr, glerr);
+// 		return 0;
+// 	}
+// 
+// 	if (target != GL_TEXTURE_2D)
+// 	{
+// 		glBindTexture(target, 0);
+// 		glDeleteTextures(1, &target);
+// 		SDL_Log("loadKtxTexture '%s' failed. not GL_TEXTURE_2D", filename);
+// 		return 0;
+// 	}
+// 
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, isMipmap ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+// 
+// 	if (width)
+// 	{
+// 		*width = dimensions.width;
+// 	}
+// 
+// 	if (height)
+// 	{
+// 		*height = dimensions.height;
+// 	}
+// 
+// 	return tex;
+// }
 
 GLuint gProgram;
 GLuint gvPositionHandle;
 
 bool setupGraphics(int w, int h) {
+    DI_SAVE_CALLSTACK();
+
     printGLString("Version", GL_VERSION);
     printGLString("Vendor", GL_VENDOR);
     printGLString("Renderer", GL_RENDERER);
@@ -215,7 +225,9 @@ bool setupGraphics(int w, int h) {
 const GLfloat gTriangleVertices[] = { 0.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f };
 
 void renderFrame() {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    DI_SAVE_CALLSTACK();
+
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     checkGlError("glClearColor");
     glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     checkGlError("glClear");
@@ -231,11 +243,41 @@ void renderFrame() {
     checkGlError("glDrawArrays");
 }
 
+void onSignal(int sig)
+{
+    LogError("onSignal %d", sig);
+    FuncCallInfoStack::GetThreadStack().OutputToLog();
+
+#ifdef _WIN32
+    string title = String_Format("signal fault %d", sig);
+    string message = FuncCallInfoStack::GetThreadStack().OutputToString();
+
+    SDL_MessageBoxButtonData button;
+    button.flags = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT | SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT;
+    button.buttonid = 1;
+    button.text = "OK I know";
+
+    SDL_MessageBoxData msgboxData;
+    msgboxData.flags = SDL_MESSAGEBOX_ERROR;
+    msgboxData.window = nullptr;
+    msgboxData.title = title.c_str();
+    msgboxData.message = message.c_str();
+    msgboxData.numbuttons = 1;
+    msgboxData.buttons = &button;
+    msgboxData.colorScheme = nullptr;
+
+    int buttonId;
+    SDL_ShowMessageBox(&msgboxData, &buttonId);
+#endif
+
+    exit(0);
+}
+
 int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 {
-    DI_SAVE_CALLSTACK();
+    signal(SIGSEGV, onSignal);
 
-    // TODO: add signal handler here
+    DI_SAVE_CALLSTACK();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -279,23 +321,23 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 	setupGraphics(width, height);
 	checkGlError("setupGraphics");
 
-	if (loadKtxTexture("10001.ktx") == 0)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "loadKtxTexture failed");
-		abort();
-	}
+// 	if (loadKtxTexture("10001.ktx") == 0)
+// 	{
+// 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "loadKtxTexture failed");
+// 		abort();
+// 	}
 
 	SDL_Log("gProgram = %d", gProgram);
 
 	glUseProgram(gProgram);
 	checkGlError("glUseProgram");
 
-	GLint loc = glGetUniformLocation(gProgram, "tex");
-	SDL_Log("loc = %d", loc);
-	checkGlError("glGetUniformLocation1");
-
-	glUniform1i(loc, 0);
-	checkGlError("glUniform1i");
+// 	GLint loc = glGetUniformLocation(gProgram, "tex");
+// 	SDL_Log("loc = %d", loc);
+// 	checkGlError("glGetUniformLocation1");
+// 
+// 	glUniform1i(loc, 0);
+// 	checkGlError("glUniform1i");
 
 	SDL_Event ev;
 	bool willQuit = false;
@@ -305,15 +347,68 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 		{
 			if (ev.type == SDL_QUIT)
 			{
+                LogInfo("Event SDL_QUIT");
 				willQuit = true;
+                break;
 			}
+            else if (ev.type == SDL_APP_TERMINATING)
+            {
+                LogInfo("Event SDL_APP_TERMINATING");
+				willQuit = true;
+                break;
+            }
+            else if (ev.type == SDL_APP_WILLENTERBACKGROUND)
+            {
+                LogInfo("Event SDL_APP_WILLENTERBACKGROUND");
+            }
+            else if (ev.type == SDL_APP_DIDENTERBACKGROUND)
+            {
+                LogInfo("Event SDL_APP_DIDENTERBACKGROUND");
+            }
+            else if (ev.type == SDL_APP_WILLENTERFOREGROUND)
+            {
+                LogInfo("Event SDL_APP_WILLENTERFOREGROUND");
+            }
+            else if (ev.type == SDL_APP_DIDENTERFOREGROUND)
+            {
+                LogInfo("Event SDL_APP_DIDENTERFOREGROUND");
+            }
+            else if (ev.type == SDL_KEYUP)
+            {
+                LogInfo("Event SDL_KEYUP, scancode = %d", ev.key.keysym.scancode);
+                if (ev.key.keysym.scancode == SDL_SCANCODE_AC_BACK)
+                {
+                    LogInfo("Back button pressed");
+				    willQuit = true;
+                    break;
+                }
+                else if (ev.key.keysym.scancode == SDL_SCANCODE_MENU)
+                {
+                    LogInfo("Menu button pressed");
+                }
+            }
 		}
 
+        if (willQuit)
+        {
+            break;
+        }
+
+        // glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 		// glClear(GL_COLOR_BUFFER_BIT);
 		renderFrame();
 		SDL_GL_SwapWindow(window);
+
+		SDL_WaitEvent(NULL);
 	}
 
+    SDL_GL_MakeCurrent(nullptr, nullptr);
+    SDL_GL_DeleteContext(context);
+    context = nullptr;
+    SDL_DestroyWindow(window);
+    window = nullptr;
+
 	SDL_Quit();
+
 	return 0;
 }

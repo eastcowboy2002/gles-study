@@ -111,7 +111,26 @@ namespace di
 
     void FuncCallInfoStack::OutputToLog()
     {
-        // TODO: not finished
+        LogInfo("========== Call Stack ==========");
+        for (auto iter = m_stack.rbegin(); iter != m_stack.rend(); ++iter)
+        {
+            const FuncCallInfo& info = *iter;
+            LogInfo("    %s at %s:%d", info.function, info.file, info.line);
+        }
+    }
+
+
+    string FuncCallInfoStack::OutputToString()
+    {
+        string ret = "========== Call Stack ==========\r\n";
+        for (auto iter = m_stack.rbegin(); iter != m_stack.rend(); ++iter)
+        {
+            const FuncCallInfo& info = *iter;
+            string buf = String_Format("    %s at %s:%d\r\n", info.function, info.file, info.line);
+            ret += buf;
+        }
+
+        return ret;
     }
 
 

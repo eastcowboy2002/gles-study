@@ -116,6 +116,7 @@ namespace di
         void Push(const FuncCallInfo& info) { m_stack.push_back(info); }
         void Pop() { m_stack.pop_back(); }
         void OutputToLog();
+        string OutputToString();
 
     private:
         vector<FuncCallInfo> m_stack;
