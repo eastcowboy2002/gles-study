@@ -363,6 +363,7 @@
     <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8i.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8li.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\dec\webpi.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dsp\dsp.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\dsp\lossless.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\dsp\yuv.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\enc\backward_references.h" />
