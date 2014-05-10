@@ -142,7 +142,7 @@ namespace di
             const string& item = (*iter).first;
             const ItemData& itemData = (*iter).second;
 
-            LogInfo("    [%28s] - millis: %15f, count: %10d", item.c_str(), itemData.seconds * 1000.0, itemData.times);
+            LogInfo("    [%28s] - millis: %15f, count: %10ld", item.c_str(), itemData.seconds * 1000.0, itemData.times);
         }
     }
 
