@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="IMG.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_bmp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_gif.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_jpg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_lbm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_pcx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_png.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_pnm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_tga.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_tif.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_webp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_xcf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_xpm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_xv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMG_xxx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\adler32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\compress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\crc32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\deflate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\gzclose.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\gzlib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\gzread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\gzwrite.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\infback.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\inffast.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\inflate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\inftrees.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\trees.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\uncompr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\zlib-1.2.8\zutil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\alpha.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\buffer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\frame.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\idec.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\io.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\layer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\quant.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\tree.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\vp8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\vp8l.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\webp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\cpu.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec_sse2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc_sse2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\lossless.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling_sse2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\yuv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\alpha.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\analysis.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\backward_references.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\config.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\cost.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\filter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\frame.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\histogram.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\iterator.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\layer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\picture.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\quant.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\syntax.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\token.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\tree.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\vp8l.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\webpenc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\bit_reader.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\bit_writer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\color_cache.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\filters.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\huffman.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\huffman_encode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\quant_levels.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\quant_levels_dec.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\rescaler.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\thread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\png.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngerror.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngget.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngmem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngpread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngrio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngrtran.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngrutil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngtrans.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngwutil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngwio.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngwrite.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libpng-1.6.2\pngwtran.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jaricom.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcapimin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcapistd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcarith.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jccoefct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jccolor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcdctmgr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jchuff.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcinit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcmainct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcmarker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcmaster.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcomapi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcparam.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcprepct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jcsample.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jctrans.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdapimin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdapistd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdarith.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdatadst.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdatasrc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdcoefct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdcolor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jddctmgr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdhuff.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdinput.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdmainct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdmarker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdmaster.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdmerge.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdpostct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdsample.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jdtrans.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jerror.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jfdctflt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jfdctfst.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jfdctint.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jidctflt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jidctfst.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jidctint.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jmemansi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jquant1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jquant2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jutils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\jpeg-9\jmemmgr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="miniz.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\crc32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\deflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\gzguts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\inffast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\inffixed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\inftrees.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\inflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\zlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\zlib-1.2.8\zutil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\decode_vp8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8li.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\webpi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\dsp\lossless.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\dsp\yuv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\backward_references.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\cost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\histogram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\vp8enci.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\vp8li.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\bit_reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\bit_writer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\color_cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\filters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\huffman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\huffman_encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\quant_levels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\quant_levels_dec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\rescaler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libpng-1.6.2\png.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libpng-1.6.2\pngconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libpng-1.6.2\pngdebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libpng-1.6.2\pnginfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libpng-1.6.2\pnglibconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libpng-1.6.2\pngpriv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libpng-1.6.2\pngstruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jpeg-9\jconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jpeg-9\jdct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jpeg-9\jerror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jpeg-9\jinclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\decode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\demux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\format_constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\mux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\mux_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="external\jpeg-9\jidctfst.S" />
+  </ItemGroup>
+</Project>

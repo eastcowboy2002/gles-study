@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="external\jpeg-9\jaricom.c" />
+    <ClCompile Include="external\jpeg-9\jcapimin.c" />
+    <ClCompile Include="external\jpeg-9\jcapistd.c" />
+    <ClCompile Include="external\jpeg-9\jcarith.c" />
+    <ClCompile Include="external\jpeg-9\jccoefct.c" />
+    <ClCompile Include="external\jpeg-9\jccolor.c" />
+    <ClCompile Include="external\jpeg-9\jcdctmgr.c" />
+    <ClCompile Include="external\jpeg-9\jchuff.c" />
+    <ClCompile Include="external\jpeg-9\jcinit.c" />
+    <ClCompile Include="external\jpeg-9\jcmainct.c" />
+    <ClCompile Include="external\jpeg-9\jcmarker.c" />
+    <ClCompile Include="external\jpeg-9\jcmaster.c" />
+    <ClCompile Include="external\jpeg-9\jcomapi.c" />
+    <ClCompile Include="external\jpeg-9\jcparam.c" />
+    <ClCompile Include="external\jpeg-9\jcprepct.c" />
+    <ClCompile Include="external\jpeg-9\jcsample.c" />
+    <ClCompile Include="external\jpeg-9\jctrans.c" />
+    <ClCompile Include="external\jpeg-9\jdapimin.c" />
+    <ClCompile Include="external\jpeg-9\jdapistd.c" />
+    <ClCompile Include="external\jpeg-9\jdarith.c" />
+    <ClCompile Include="external\jpeg-9\jdatadst.c" />
+    <ClCompile Include="external\jpeg-9\jdatasrc.c" />
+    <ClCompile Include="external\jpeg-9\jdcoefct.c" />
+    <ClCompile Include="external\jpeg-9\jdcolor.c" />
+    <ClCompile Include="external\jpeg-9\jddctmgr.c" />
+    <ClCompile Include="external\jpeg-9\jdhuff.c" />
+    <ClCompile Include="external\jpeg-9\jdinput.c" />
+    <ClCompile Include="external\jpeg-9\jdmainct.c" />
+    <ClCompile Include="external\jpeg-9\jdmarker.c" />
+    <ClCompile Include="external\jpeg-9\jdmaster.c" />
+    <ClCompile Include="external\jpeg-9\jdmerge.c" />
+    <ClCompile Include="external\jpeg-9\jdpostct.c" />
+    <ClCompile Include="external\jpeg-9\jdsample.c" />
+    <ClCompile Include="external\jpeg-9\jdtrans.c" />
+    <ClCompile Include="external\jpeg-9\jerror.c" />
+    <ClCompile Include="external\jpeg-9\jfdctflt.c" />
+    <ClCompile Include="external\jpeg-9\jfdctfst.c" />
+    <ClCompile Include="external\jpeg-9\jfdctint.c" />
+    <ClCompile Include="external\jpeg-9\jidctflt.c" />
+    <ClCompile Include="external\jpeg-9\jidctfst.c" />
+    <ClCompile Include="external\jpeg-9\jidctint.c" />
+    <ClCompile Include="external\jpeg-9\jmemansi.c" />
+    <ClCompile Include="external\jpeg-9\jmemmgr.c" />
+    <ClCompile Include="external\jpeg-9\jquant1.c" />
+    <ClCompile Include="external\jpeg-9\jquant2.c" />
+    <ClCompile Include="external\jpeg-9\jutils.c" />
+    <ClCompile Include="external\libpng-1.6.2\png.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngerror.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngget.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngmem.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngpread.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngread.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngrio.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngrtran.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngrutil.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngset.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngtrans.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngwio.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngwrite.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngwtran.c" />
+    <ClCompile Include="external\libpng-1.6.2\pngwutil.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\alpha.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\buffer.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\frame.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\idec.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\io.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\layer.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\quant.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\tree.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\vp8.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\vp8l.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dec\webp.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_dec\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\cpu.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec_sse2.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc_sse2.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\lossless.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling_sse2.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\yuv.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\alpha.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\analysis.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\backward_references.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\config.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\cost.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\filter.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\frame.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\histogram.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\iterator.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\layer.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\picture.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\quant.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\syntax.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\token.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\tree.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\vp8l.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\enc\webpenc.c">
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</AssemblerListingLocation>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\bit_reader.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\bit_writer.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\color_cache.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\filters.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\huffman.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\huffman_encode.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\quant_levels.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\quant_levels_dec.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\rescaler.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\thread.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\utils.c" />
+    <ClCompile Include="external\zlib-1.2.8\adler32.c" />
+    <ClCompile Include="external\zlib-1.2.8\compress.c" />
+    <ClCompile Include="external\zlib-1.2.8\crc32.c" />
+    <ClCompile Include="external\zlib-1.2.8\deflate.c" />
+    <ClCompile Include="external\zlib-1.2.8\gzclose.c" />
+    <ClCompile Include="external\zlib-1.2.8\gzlib.c" />
+    <ClCompile Include="external\zlib-1.2.8\gzread.c" />
+    <ClCompile Include="external\zlib-1.2.8\gzwrite.c" />
+    <ClCompile Include="external\zlib-1.2.8\infback.c" />
+    <ClCompile Include="external\zlib-1.2.8\inffast.c" />
+    <ClCompile Include="external\zlib-1.2.8\inflate.c" />
+    <ClCompile Include="external\zlib-1.2.8\inftrees.c" />
+    <ClCompile Include="external\zlib-1.2.8\trees.c" />
+    <ClCompile Include="external\zlib-1.2.8\uncompr.c" />
+    <ClCompile Include="external\zlib-1.2.8\zutil.c" />
+    <ClCompile Include="IMG.c" />
+    <ClCompile Include="IMG_bmp.c" />
+    <ClCompile Include="IMG_gif.c" />
+    <ClCompile Include="IMG_jpg.c" />
+    <ClCompile Include="IMG_lbm.c" />
+    <ClCompile Include="IMG_pcx.c" />
+    <ClCompile Include="IMG_png.c" />
+    <ClCompile Include="IMG_pnm.c" />
+    <ClCompile Include="IMG_tga.c" />
+    <ClCompile Include="IMG_tif.c" />
+    <ClCompile Include="IMG_webp.c" />
+    <ClCompile Include="IMG_xcf.c" />
+    <ClCompile Include="IMG_xpm.c" />
+    <ClCompile Include="IMG_xv.c" />
+    <ClCompile Include="IMG_xxx.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="external\jpeg-9\jconfig.h" />
+    <ClInclude Include="external\jpeg-9\jdct.h" />
+    <ClInclude Include="external\jpeg-9\jerror.h" />
+    <ClInclude Include="external\jpeg-9\jinclude.h" />
+    <ClInclude Include="external\libpng-1.6.2\png.h" />
+    <ClInclude Include="external\libpng-1.6.2\pngconf.h" />
+    <ClInclude Include="external\libpng-1.6.2\pngdebug.h" />
+    <ClInclude Include="external\libpng-1.6.2\pnginfo.h" />
+    <ClInclude Include="external\libpng-1.6.2\pnglibconf.h" />
+    <ClInclude Include="external\libpng-1.6.2\pngpriv.h" />
+    <ClInclude Include="external\libpng-1.6.2\pngstruct.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\decode_vp8.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8i.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8li.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\webpi.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dsp\lossless.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dsp\yuv.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\backward_references.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\cost.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\histogram.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\vp8enci.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\enc\vp8li.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\bit_reader.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\bit_writer.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\color_cache.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\filters.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\huffman.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\huffman_encode.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\quant_levels.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\quant_levels_dec.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\rescaler.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\thread.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\utils.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\decode.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\demux.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\encode.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\format_constants.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\mux.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\mux_types.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\webp\types.h" />
+    <ClInclude Include="external\zlib-1.2.8\crc32.h" />
+    <ClInclude Include="external\zlib-1.2.8\deflate.h" />
+    <ClInclude Include="external\zlib-1.2.8\gzguts.h" />
+    <ClInclude Include="external\zlib-1.2.8\inffast.h" />
+    <ClInclude Include="external\zlib-1.2.8\inffixed.h" />
+    <ClInclude Include="external\zlib-1.2.8\inflate.h" />
+    <ClInclude Include="external\zlib-1.2.8\inftrees.h" />
+    <ClInclude Include="external\zlib-1.2.8\zconf.h" />
+    <ClInclude Include="external\zlib-1.2.8\zlib.h" />
+    <ClInclude Include="external\zlib-1.2.8\zutil.h" />
+    <ClInclude Include="miniz.h" />
+    <ClInclude Include="SDL_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="external\jpeg-9\jidctfst.S" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7D06E22E-C015-4009-B3D0-89C9743D164F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SDL_image</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;LOAD_BMP;LOAD_GIF;DLOAD_LBM;DLOAD_PCX;DLOAD_PNM;LOAD_TGA;LOAD_XCF;LOAD_XPM;LOAD_XV;LOAD_JPG;AVOID_TABLES;LOAD_PNG;LOAD_WEBP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../SDL/include;external/zlib-1.2.8;external/libpng-1.6.2;external/jpeg-9;external/libwebp-0.3.0/src</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;LOAD_BMP;LOAD_GIF;DLOAD_LBM;DLOAD_PCX;DLOAD_PNM;LOAD_TGA;LOAD_XCF;LOAD_XPM;LOAD_XV;LOAD_JPG;AVOID_TABLES;LOAD_PNG;LOAD_WEBP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../SDL/include;external/zlib-1.2.8;external/libpng-1.6.2;external/jpeg-9;external/libwebp-0.3.0/src</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

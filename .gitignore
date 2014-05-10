@@ -3,6 +3,8 @@
 /glesstudy/libs
 /glesstudy/jni/SDL/Debug
 /glesstudy/jni/SDL/Release
+/glesstudy/jni/SDL_image/Debug
+/glesstudy/jni/SDL_image/Release
 /glesstudy/jni/libktx/Debug
 /glesstudy/jni/libktx/Release
 /glesstudy/jni/main/Debug

@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;KTX_OPENGL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../SDL/include;../libktx/include;../../../msvc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../SDL/include;../SDL_image;../libktx/include;../../../msvc</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
@@ -71,7 +71,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;KTX_OPENGL=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../SDL/include;../libktx/include;../../../msvc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../SDL/include;../SDL_image;../libktx/include;../../../msvc</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
@@ -98,6 +98,9 @@
     </ProjectReference>
     <ProjectReference Include="..\SDL\SDL.vcxproj">
       <Project>{da2a9f2f-c9f0-4637-9327-9d5701c45e1b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SDL_image\SDL_image.vcxproj">
+      <Project>{7d06e22e-c015-4009-b3d0-89c9743d164f}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
