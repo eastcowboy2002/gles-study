@@ -34,10 +34,10 @@ static const char gVertexShader[] =
     "#define lowp\n"
 #endif
     "attribute vec4 vPosition;\n"
-    // "varying highp vec2 vTexcoord;\n"
+    "varying highp vec2 vTexcoord;\n"
     "void main() {\n"
     // "  vTexcoord = vPosition.xy * 0.5 + 0.5;\n"
-    // "  vTexcoord = vec2(vPosition.x * 0.5 + 0.5, 0.5 - vPosition.y * 0.5);\n"
+    "  vTexcoord = vec2(vPosition.x * 0.5 + 0.5, 0.5 - vPosition.y * 0.5);\n"
     "  gl_Position = vPosition;\n"
     "}\n";
 
@@ -47,14 +47,14 @@ static const char gFragmentShader[] =
     "#define mediump\n"
     "#define lowp\n"
 #endif
-    // "varying highp vec2 vTexcoord;\n"
-    // "uniform lowp sampler2D tex;\n"
+    "varying highp vec2 vTexcoord;\n"
+    "uniform lowp sampler2D tex;\n"
     // "precision mediump float;\n"
     "void main() {\n"
-    // "  gl_FragColor = texture2D(tex, vTexcoord);\n"
+    "  gl_FragColor = texture2D(tex, vTexcoord);\n"
 	// "  gl_FragColor = texture2D(tex, vec2(0.5, 0.5));\n"
     // "  gl_FragColor = vec4(vTexcoord, 0.0, 1.0);\n"
-    "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
+    // "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
     "}\n";
 
 GLuint loadShader(GLenum shaderType, const char* pSource) {
@@ -334,10 +334,18 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 // 		abort();
 // 	}
 
-	SDL_Surface* t = IMG_Load("main_bg.webp");
+	uint64_t tick = SDL_GetPerformanceCounter();
+    SDL_Surface* t = IMG_Load("main_bg.webp");
+    // SDL_Surface* t = IMG_Load("10000.jpg");
+    // SDL_Surface* t = IMG_Load("10000.webp");
+    // SDL_Surface* t = IMG_Load("advBegin.png");
+    // SDL_Surface* t = IMG_Load("advBegin.webp");
 	if (t)
 	{
 		SDL_Log("IMG_Load OK");
+		SDL_Log("time cost: %llu ms", (SDL_GetPerformanceCounter() - tick) * 1000 / SDL_GetPerformanceFrequency());
+//		SDL_Delay(1000);
+//		SDL_Log("time cost: %llu ms", (SDL_GetPerformanceCounter() - tick) * 1000 / SDL_GetPerformanceFrequency());
 
 		GLuint textureObjOpenGLlogo;
 		glGenTextures(1, &textureObjOpenGLlogo);
@@ -348,7 +356,19 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		SDL_Log("image format: %d (0x%X)", t->format, t->format);
+		SDL_Log("image format: %d (0x%X)", t->format->format, t->format->format);
+		SDL_Log("image masks: 0x%X, 0x%X, 0x%X, 0x%X", t->format->Rmask, t->format->Gmask, t->format->Bmask, t->format->Amask);
+		SDL_Log("image losses: %d, %d, %d, %d", t->format->Rloss, t->format->Gloss, t->format->Bloss, t->format->Aloss);
+		SDL_Log("image shifts: %d, %d, %d, %d", t->format->Rshift, t->format->Gshift, t->format->Bshift, t->format->Ashift);
+		SDL_Log("SDL_PIXELFORMAT_RGB24 = 0x%X", SDL_PIXELFORMAT_RGB24);
+		SDL_Log("SDL_PIXELFORMAT_BGR24 = 0x%X", SDL_PIXELFORMAT_BGR24);
+		SDL_Log("SDL_PIXELFORMAT_RGB888 = 0x%X", SDL_PIXELFORMAT_RGB888);
+		SDL_Log("SDL_PIXELFORMAT_RGBA8888 = 0x%X", SDL_PIXELFORMAT_RGBA8888);
+		SDL_Log("SDL_PIXELFORMAT_BGR888 = 0x%X", SDL_PIXELFORMAT_BGR888);
+		SDL_Log("SDL_PIXELFORMAT_BGRA8888 = 0x%X", SDL_PIXELFORMAT_BGRA8888);
+		SDL_Log("SDL_PIXELFORMAT_BGRX8888 = 0x%X", SDL_PIXELFORMAT_BGRX8888);
+		SDL_Log("SDL_PIXELFORMAT_RGBX8888 = 0x%X", SDL_PIXELFORMAT_RGBX8888);
+        SDL_Log("SDL_PIXELFORMAT_ABGR8888 = 0x%X", SDL_PIXELFORMAT_ABGR8888);
 
 		bool needLock = SDL_MUSTLOCK(t);
 		if (needLock)
@@ -356,16 +376,18 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 			SDL_LockSurface(t);
 		}
 
-		if (t->format->format == SDL_PIXELFORMAT_RGBA8888)
-		{
-			SDL_Log("format RGBA");
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t->w, t->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, t->pixels);
-		}
-		else if (t->format->format == SDL_PIXELFORMAT_RGB888)
+		if (t->format->format == SDL_PIXELFORMAT_RGB24)
 		{
 			SDL_Log("format RGB");
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t->w, t->h, 0, GL_RGB, GL_UNSIGNED_BYTE, t->pixels);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t->w, t->h, 0, GL_RGB, GL_UNSIGNED_BYTE, t->pixels);
+			checkGlError("glTexImage2D");
 		}
+        else if (t->format->format == SDL_PIXELFORMAT_ABGR8888)
+        {
+			SDL_Log("format RGBA");
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t->w, t->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, t->pixels);
+			checkGlError("glTexImage2D");
+        }
 
 		if (needLock)
 		{
@@ -380,17 +402,15 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 		abort();
 	}
 
-	SDL_Log("gProgram = %d", gProgram);
-
 	glUseProgram(gProgram);
 	checkGlError("glUseProgram");
 
-// 	GLint loc = glGetUniformLocation(gProgram, "tex");
-// 	SDL_Log("loc = %d", loc);
-// 	checkGlError("glGetUniformLocation1");
-// 
-// 	glUniform1i(loc, 0);
-// 	checkGlError("glUniform1i");
+	GLint loc = glGetUniformLocation(gProgram, "tex");
+	SDL_Log("loc = %d", loc);
+	checkGlError("glGetUniformLocation1");
+
+	glUniform1i(loc, 0);
+	checkGlError("glUniform1i");
 
 	SDL_Event ev;
 	bool willQuit = false;
