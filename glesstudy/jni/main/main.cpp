@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <math.h>
 
 #include <signal.h>
@@ -223,7 +224,8 @@ bool setupGraphics(int w, int h) {
     return true;
 }
 
-const GLfloat gTriangleVertices[] = { 0.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f };
+// const GLfloat gTriangleVertices[] = { 0.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f };
+const GLfloat gTriangleVertices[] = { -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f };
 
 void renderFrame() {
     DI_SAVE_CALLSTACK();
@@ -240,7 +242,7 @@ void renderFrame() {
     checkGlError("glVertexAttribPointer");
     glEnableVertexAttribArray(gvPositionHandle);
     checkGlError("glEnableVertexAttribArray");
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, sizeof(gTriangleVertices) / sizeof(gTriangleVertices[0]));
     checkGlError("glDrawArrays");
 }
 
@@ -273,6 +275,60 @@ void onSignal(int sig)
 
     exit(0);
 }
+
+
+#include <vector>
+#include <string>
+
+std::vector<std::string> performance_test_logs;
+
+
+void TestImagePerformance(const char* filename, int times)
+{
+#ifdef WIN32
+    Uint64 minTicks = UINT64_MAX;
+#else
+    Uint64 minTicks = ULONG_LONG_MAX;
+#endif
+
+    Uint64 maxTicks = 0;
+    Uint64 totalTicks = 0;
+
+    for (int i = 0; i < times; ++i)
+    {
+        Uint64 startTick = SDL_GetPerformanceCounter();
+        SDL_Surface* surface = IMG_Load(filename);
+        Uint64 ticks = SDL_GetPerformanceCounter() - startTick;
+        if (!surface)
+        {
+            LOGE("failed loading '%s'", filename);
+            return;
+        }
+
+        SDL_FreeSurface(surface);
+
+        if (minTicks > ticks)
+        {
+            minTicks = ticks;
+        }
+
+        if (maxTicks < ticks)
+        {
+            maxTicks = ticks;
+        }
+
+        totalTicks += ticks;
+    }
+
+    Uint64 freq = SDL_GetPerformanceFrequency();
+
+    performance_test_logs.push_back(String_Format("load '%s' %d times. min = %llu, max = %llu, avg = %llu",
+            filename, times, minTicks * 1000 / freq, maxTicks * 1000 / freq, totalTicks * 1000 / times / freq));
+
+    LOGI("load '%s' %d times. min = %llu, max = %llu, avg = %llu",
+        filename, times, minTicks * 1000 / freq, maxTicks * 1000 / freq, totalTicks * 1000 / times / freq);
+}
+
 
 int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 {
@@ -333,6 +389,28 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 // 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "loadKtxTexture failed");
 // 		abort();
 // 	}
+
+#if 0
+    SDL_Delay(300);
+
+    int times = 50;
+    TestImagePerformance("main_bg.webp", times);
+    TestImagePerformance("test_png.webp", times);
+    TestImagePerformance("test_png.png", times);
+    TestImagePerformance("test_jpg_full.webp", times);
+    TestImagePerformance("test_jpg_full.jpg", times);
+    TestImagePerformance("test_jpg_mid.webp", times);
+    TestImagePerformance("test_jpg_80.jpg", times);
+    TestImagePerformance("test_jpg_70.jpg", times);
+    TestImagePerformance("test_jpg_60.jpg", times);
+    TestImagePerformance("test_jpg_small.webp", times);
+    TestImagePerformance("test_jpg_small.jpg", times);
+
+    for (const std::string& log : performance_test_logs)
+    {
+    	LOGI("%s", log.c_str());
+    }
+#endif
 
 	uint64_t tick = SDL_GetPerformanceCounter();
     SDL_Surface* t = IMG_Load("main_bg.webp");
