@@ -341,44 +341,45 @@ _ftol2_sse()
 }
 
 /* 64-bit math operators for 32-bit systems */
-void
-__declspec(naked)
-_allmul()
-{
-    /* *INDENT-OFF* */
-    __asm {
-        push        ebp
-        mov         ebp,esp
-        push        edi
-        push        esi
-        push        ebx
-        sub         esp,0Ch
-        mov         eax,dword ptr [ebp+10h]
-        mov         edi,dword ptr [ebp+8]
-        mov         ebx,eax
-        mov         esi,eax
-        sar         esi,1Fh
-        mov         eax,dword ptr [ebp+8]
-        mul         ebx
-        imul        edi,esi
-        mov         ecx,edx
-        mov         dword ptr [ebp-18h],eax
-        mov         edx,dword ptr [ebp+0Ch]
-        add         ecx,edi
-        imul        ebx,edx
-        mov         eax,dword ptr [ebp-18h]
-        lea         ebx,[ebx+ecx]
-        mov         dword ptr [ebp-14h],ebx
-        mov         edx,dword ptr [ebp-14h]
-        add         esp,0Ch
-        pop         ebx
-        pop         esi
-        pop         edi
-        pop         ebp
-        ret         10h
-    }
-    /* *INDENT-ON* */
-}
+// see https://bugzilla.libsdl.org/show_bug.cgi?id=2537
+// void
+// __declspec(naked)
+// _allmul()
+// {
+//     /* *INDENT-OFF* */
+//     __asm {
+//         push        ebp
+//         mov         ebp,esp
+//         push        edi
+//         push        esi
+//         push        ebx
+//         sub         esp,0Ch
+//         mov         eax,dword ptr [ebp+10h]
+//         mov         edi,dword ptr [ebp+8]
+//         mov         ebx,eax
+//         mov         esi,eax
+//         sar         esi,1Fh
+//         mov         eax,dword ptr [ebp+8]
+//         mul         ebx
+//         imul        edi,esi
+//         mov         ecx,edx
+//         mov         dword ptr [ebp-18h],eax
+//         mov         edx,dword ptr [ebp+0Ch]
+//         add         ecx,edi
+//         imul        ebx,edx
+//         mov         eax,dword ptr [ebp-18h]
+//         lea         ebx,[ebx+ecx]
+//         mov         dword ptr [ebp-14h],ebx
+//         mov         edx,dword ptr [ebp-14h]
+//         add         esp,0Ch
+//         pop         ebx
+//         pop         esi
+//         pop         edi
+//         pop         ebp
+//         ret         10h
+//     }
+//     /* *INDENT-ON* */
+// }
 
 void
 __declspec(naked)
