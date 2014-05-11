@@ -432,6 +432,21 @@
     <ClCompile Include="external\jpeg-9\jmemmgr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec_neon.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc_neon.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling_neon.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\alpha_processing.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="miniz.h">
@@ -591,6 +606,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\libwebp-0.3.0\src\dsp\dsp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\alphai.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\alpha_processing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,6 @@
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
 //------------------------------------------------------------------------------
 // WebPConfig
 //------------------------------------------------------------------------------
@@ -31,7 +30,7 @@ int WebPConfigInitInternal(WebPConfig* config,
   config->target_PSNR = 0.;
   config->method = 4;
   config->sns_strength = 50;
-  config->filter_strength = 60;   // rather high filtering, helps w/ gradients.
+  config->filter_strength = 60;   // mid-filtering
   config->filter_sharpness = 0;
   config->filter_type = 1;        // default: strong (so U/V is filtered too)
   config->partitions = 0;
@@ -56,11 +55,13 @@ int WebPConfigInitInternal(WebPConfig* config,
       config->sns_strength = 80;
       config->filter_sharpness = 4;
       config->filter_strength = 35;
+      config->preprocessing &= ~2;   // no dithering
       break;
     case WEBP_PRESET_PHOTO:
       config->sns_strength = 80;
       config->filter_sharpness = 3;
       config->filter_strength = 30;
+      config->preprocessing |= 2;
       break;
     case WEBP_PRESET_DRAWING:
       config->sns_strength = 25;
@@ -70,10 +71,12 @@ int WebPConfigInitInternal(WebPConfig* config,
     case WEBP_PRESET_ICON:
       config->sns_strength = 0;
       config->filter_strength = 0;   // disable filtering to retain sharpness
+      config->preprocessing &= ~2;   // no dithering
       break;
     case WEBP_PRESET_TEXT:
       config->sns_strength = 0;
       config->filter_strength = 0;   // disable filtering to retain sharpness
+      config->preprocessing &= ~2;   // no dithering
       config->segments = 2;
       break;
     case WEBP_PRESET_DEFAULT:
@@ -109,7 +112,7 @@ int WebPValidateConfig(const WebPConfig* config) {
     return 0;
   if (config->show_compressed < 0 || config->show_compressed > 1)
     return 0;
-  if (config->preprocessing < 0 || config->preprocessing > 1)
+  if (config->preprocessing < 0 || config->preprocessing > 3)
     return 0;
   if (config->partitions < 0 || config->partitions > 3)
     return 0;

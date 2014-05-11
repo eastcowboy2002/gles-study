@@ -162,11 +162,14 @@
     </ClCompile>
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\cpu.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec_neon.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\dec_sse2.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc_neon.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\enc_sse2.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\lossless.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling_neon.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\upsampling_sse2.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\dsp\yuv.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\enc\alpha.c">
@@ -305,6 +308,7 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</ObjectFileName>
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)webp_enc\</XMLDocumentationFileName>
     </ClCompile>
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\alpha_processing.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\bit_reader.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\bit_writer.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\color_cache.c" />
@@ -313,6 +317,7 @@
     <ClCompile Include="external\libwebp-0.3.0\src\utils\huffman_encode.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\quant_levels.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\quant_levels_dec.c" />
+    <ClCompile Include="external\libwebp-0.3.0\src\utils\random.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\rescaler.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\thread.c" />
     <ClCompile Include="external\libwebp-0.3.0\src\utils\utils.c" />
@@ -359,6 +364,7 @@
     <ClInclude Include="external\libpng-1.6.2\pnglibconf.h" />
     <ClInclude Include="external\libpng-1.6.2\pngpriv.h" />
     <ClInclude Include="external\libpng-1.6.2\pngstruct.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\dec\alphai.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\dec\decode_vp8.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8i.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\dec\vp8li.h" />
@@ -371,6 +377,7 @@
     <ClInclude Include="external\libwebp-0.3.0\src\enc\histogram.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\enc\vp8enci.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\enc\vp8li.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\alpha_processing.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\bit_reader.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\bit_writer.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\color_cache.h" />
@@ -379,6 +386,7 @@
     <ClInclude Include="external\libwebp-0.3.0\src\utils\huffman_encode.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\quant_levels.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\quant_levels_dec.h" />
+    <ClInclude Include="external\libwebp-0.3.0\src\utils\random.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\rescaler.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\thread.h" />
     <ClInclude Include="external\libwebp-0.3.0\src\utils\utils.h" />

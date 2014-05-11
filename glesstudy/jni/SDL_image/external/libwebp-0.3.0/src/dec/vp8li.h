@@ -55,7 +55,8 @@ typedef struct {
   HTreeGroup     *htree_groups_;
 } VP8LMetadata;
 
-typedef struct {
+typedef struct VP8LDecoder VP8LDecoder;
+struct VP8LDecoder {
   VP8StatusCode    status_;
   VP8LDecodeState  action_;
   VP8LDecodeState  state_;
@@ -72,6 +73,9 @@ typedef struct {
   int              width_;
   int              height_;
   int              last_row_;      // last input row decoded so far.
+  int              last_pixel_;    // last pixel decoded so far. However, it may
+                                   // not be transformed, scaled and
+                                   // color-converted yet.
   int              last_out_row_;  // last row output so far.
 
   VP8LMetadata     hdr_;
@@ -83,18 +87,27 @@ typedef struct {
 
   uint8_t         *rescaler_memory;  // Working memory for rescaling work.
   WebPRescaler    *rescaler;         // Common rescaler for all channels.
-} VP8LDecoder;
+};
 
 //------------------------------------------------------------------------------
 // internal functions. Not public.
 
+struct ALPHDecoder;  // Defined in dec/alphai.h.
+
 // in vp8l.c
 
-// Decodes a raw image stream (without header) and store the alpha data
-// into *output, which must be of size width x height. Returns false in case
-// of error.
-int VP8LDecodeAlphaImageStream(int width, int height, const uint8_t* const data,
-                               size_t data_size, uint8_t* const output);
+// Decodes image header for alpha data stored using lossless compression.
+// Returns false in case of error.
+int VP8LDecodeAlphaHeader(struct ALPHDecoder* const alph_dec,
+                          const uint8_t* const data, size_t data_size,
+                          uint8_t* const output);
+
+// Decodes *at least* 'last_row' rows of alpha. If some of the initial rows are
+// already decoded in previous call(s), it will resume decoding from where it
+// was paused.
+// Returns false in case of bitstream error.
+int VP8LDecodeAlphaImageStream(struct ALPHDecoder* const alph_dec,
+                               int last_row);
 
 // Allocates and initialize a new lossless decoder instance.
 VP8LDecoder* VP8LNew(void);

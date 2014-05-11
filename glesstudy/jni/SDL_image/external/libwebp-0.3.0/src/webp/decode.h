@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-#define WEBP_DECODER_ABI_VERSION 0x0201    // MAJOR(8b) + MINOR(8b)
+#define WEBP_DECODER_ABI_VERSION 0x0203    // MAJOR(8b) + MINOR(8b)
 
 // Note: forward declaring enumerations is not allowed in (strict) C and C++,
 // the types are left here for reference.
@@ -402,9 +402,9 @@ struct WebPBitstreamFeatures {
   int height;         // Height in pixels, as read from the bitstream.
   int has_alpha;      // True if the bitstream contains an alpha channel.
   int has_animation;  // True if the bitstream is an animation.
+  int format;         // 0 = undefined (/mixed), 1 = lossy, 2 = lossless
 
   // Unused for now:
-  int bitstream_version;        // should be 0 for now. TODO(later)
   int no_incremental_decoding;  // if true, using incremental decoding is not
                                 // recommended.
   int rotate;                   // TODO(later)
@@ -439,11 +439,12 @@ struct WebPDecoderOptions {
   int use_scaling;                    // if true, scaling is applied _afterward_
   int scaled_width, scaled_height;    // final resolution
   int use_threads;                    // if true, use multi-threaded decoding
+  int dithering_strength;             // dithering strength (0=Off, 100=full)
 
   // Unused for now:
   int force_rotation;                 // forced rotation (to be applied _last_)
   int no_enhancement;                 // if true, discard enhancement layer
-  uint32_t pad[6];                    // padding for later use
+  uint32_t pad[5];                    // padding for later use
 };
 
 // Main object storing the configuration for advanced decoding.
