@@ -26,8 +26,29 @@ namespace di
             int n = vsnprintf(nullptr, 0, fmt, ap);
             if (n > 0)
             {
+                // Note: in the function vsnprintf there is a little trick
+                //
+                // in Visual C++, the 2nd parameter of vsnprintf 'count' means characters, not including the terminator '\0'
+                //    see http://msdn.microsoft.com/en-us/library/1kt27hek.aspx
+                // in Standard C++, the 2nd parameter of vsnprintf 'count' means characters, including the terminator '\0'
+                //    see http://www.cplusplus.com/reference/cstdio/vsnprintf/?kw=vsnprintf
+#ifdef _WIN32
                 ret.resize(size_t(n));
                 vsnprintf(&ret[0], size_t(n), fmt, ap);
+#else
+                // I don't think it is very safe to modify the terminator '\0' of the std::string.
+                //    see http://www.cplusplus.com/reference/string/string/operator[]/
+                //    It says,
+                //    C++98: If pos is equal to the string length, the function returns a reference to a null character ('\0').
+                //    C++11: If pos is equal to the string length, the function returns a reference to the null character
+                //              that follows the last character in the string, which shall not be modified.
+                // Neither of these standard will let us to modify the terminator '\0'.
+                // Even we don't modify it, I think writing into it is not safe, too.
+                // So just resize for one more character, fill it with '\0', and then remove it.
+                ret.resize(size_t(n) + 1);
+                vsnprintf(&ret[0], size_t(n) + 1, fmt, ap);
+                ret.resize(size_t(n));
+#endif
             }
         }
 
