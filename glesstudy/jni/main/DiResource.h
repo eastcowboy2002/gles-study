@@ -13,6 +13,11 @@ namespace di
     DI_TYPEDEF_PTR(Resource);
     DI_TYPEDEF_PTR(ImageAsTexture);
 
+    // Resource class for async resource loading
+    // There are 2 threads involved.
+    // One is OpenGL's thread (which may also be the 'main' thread of game).
+    // The other is worker thread, which is created by class ResourceManager.
+    //
     // 异步资源基类
     //
     // 资源在两个线程之间辗转。一个是GL线程，一个是worker线程。
@@ -47,16 +52,16 @@ namespace di
         float GetPriority() const { return m_priority; }
         const string& GetName() const { return m_name; }
 
-        void Invalidate() { if (m_state == State::Finished) { DI_SAVE_CALLSTACK(); m_state = State::Timeout; Timeout_InGlThread(); } }
+        void ForceTimeout() { if (m_state == State::Finished) { DI_SAVE_CALLSTACK(); m_state = State::Timeout; Timeout_InGlThread(); } }
         void UpdateTimeoutTick() { m_lastUsedTick = SDL_GetTicks(); }
         void CheckTimeout() { if (m_state != State::Finished) return; if (SDL_GetTicks() - m_lastUsedTick >= m_timeoutTicks) { DI_SAVE_CALLSTACK(); m_state = State::Timeout; Timeout_InGlThread(); } }
 
         void SetTimeoutTicks(uint32_t ticks) { m_timeoutTicks = ticks; }
 
-        // 以下内容在ResourceManager调用。其它地方不要动
-        void Prepare() { DI_SAVE_CALLSTACK(); DI_ASSERT(m_state == State::Init || m_state == State::Timeout); m_state = Prepare_InGlThread() ? State::Prepared : State::Failed; }
-        void Load() { DI_SAVE_CALLSTACK(); DI_ASSERT(m_state == State::Prepared); m_state = Load_InWorkThread() ? State::Loaded : State::Failed; }
-        void Finish() { DI_SAVE_CALLSTACK(); DI_ASSERT(m_state == State::Loaded); m_state = Finish_InGlThread() ? State::Finished : State::Failed; }
+        // Internal calls, called in differenet threads. Only called by class ResourceManager
+        void Prepare() { DI_SAVE_CALLSTACK(); ThreadLockGuard guard(m_lock); DI_ASSERT(m_state == State::Init || m_state == State::Timeout); m_state = Prepare_InGlThread() ? State::Prepared : State::Failed; }
+        void Load() { DI_SAVE_CALLSTACK(); ThreadLockGuard guard(m_lock); DI_ASSERT(m_state == State::Prepared); m_state = Load_InWorkThread() ? State::Loaded : State::Failed; }
+        void Finish() { DI_SAVE_CALLSTACK(); ThreadLockGuard guard(m_lock); DI_ASSERT(m_state == State::Loaded); m_state = Finish_InGlThread() ? State::Finished : State::Failed; }
 
     private:
         virtual bool Prepare_InGlThread() = 0;
@@ -64,11 +69,12 @@ namespace di
         virtual bool Finish_InGlThread() = 0;
         virtual void Timeout_InGlThread() = 0;
 
+        ThreadLock m_lock;
         State m_state;
         float m_priority;
         uint32_t m_lastUsedTick;
         uint32_t m_timeoutTicks;
-        string m_name;
+        const string m_name;
     };
 
 
@@ -83,12 +89,25 @@ namespace di
         void CheckAsyncFinishedResources();
         void CheckTimeoutResources();
 
-        // 应该只在GL线程使用这个singleton
-        static ResourceManager& GetSingleton() { if (!s_singleton) { s_singleton.reset(new ResourceManager()); } return *s_singleton; }
+        // consider use this Singleton ONLY in GL thread
+        // (other threads may create some other instance of ResourceManager, if necessary)
+        static ResourceManager& Singleton() { if (!s_singleton) { s_singleton.reset(new ResourceManager()); } return *s_singleton; }
         static void DestroySingleton() { s_singleton.reset(); }
 
         template <typename T>
-        shared_ptr<T> GetResource(const string& name, float priority = 0) { const ResourcePtr* r = HashFindResource(name); if (r) { DI_ASSERT(dynamic_pointer_cast<T>(*r)); return static_pointer_cast<T>(*r); } shared_ptr<T> ret(new T(name, priority)); AddResource(ret); return ret; }
+        shared_ptr<T> GetResource(const string& name, float priority = 0) {
+            const ResourcePtr* r = HashFindResource(name);
+            if (r) {
+#ifdef _WIN32
+                DI_ASSERT(dynamic_pointer_cast<T>(*r)); // on Android we compile with -fno-rtti, so dynamic_cast is not available
+#endif
+                return static_pointer_cast<T>(*r);
+            }
+
+            shared_ptr<T> ret(new T(name, priority));
+            AddResource(ret);
+            return ret;
+        }
 
     private:
         const ResourcePtr* HashFindResource(const string& name);
@@ -134,7 +153,7 @@ namespace di
             Red_8,
             Gray_8,
             RGBA_8888_Palette_256,
-            YUV, // !?  看看是不是可以用shader把YUV转为RGB
+            YUV, // !?  could we try to use an OpenGL shader to convert YUV to RGB, so save CPU operations?
         };
 
         InnerFormat GetInnerFormat() const { return m_innerFormat; }
@@ -143,18 +162,42 @@ namespace di
         GLuint GetGlTexture() const { return m_glTexture; }
 
     protected:
+        TextureProtocol() : m_innerFormat(RGBA_8888), m_width(0), m_height(0), m_glTexture(0) {}
+
         InnerFormat m_innerFormat;
         int m_width;
         int m_height;
-        GLuint m_glTexture;
+        GLuint m_glTexture;     // OpenGL texture is not created/destroyed in class TextureProtocol
     };
 
 
-    class ImageAsTexture : public Resource, public TextureProtocol
+    // base class of SDLTextureLoader, KTXTextureLoader, etc.
+    // used by class ImageAsTexture
+    class BaseTextureLoader : public TextureProtocol
     {
     public:
-        ImageAsTexture(const string& name, float priority = 0) : Resource(name, priority), m_pixels(nullptr) { m_innerFormat = RGBA_8888; m_width = 0; m_height = 0; m_glTexture = 0; }
-        ~ImageAsTexture();
+        BaseTextureLoader(const string& name) : m_name(name) {}
+
+        const string& GetName() { return m_name; }
+        virtual bool Prepare_InGlThread() = 0;
+        virtual bool Load_InWorkThread() = 0;
+        virtual bool Finish_InGlThread() = 0;
+        virtual void Timeout_InGlThread() = 0;
+
+    private:
+        const string m_name;
+    };
+
+
+    class ImageAsTexture : public Resource
+    {
+    public:
+        ImageAsTexture(const string& name, float priority = 0);
+
+        TextureProtocol::InnerFormat GetInnerFormat() const { return m_loader->GetInnerFormat(); }
+        int GetWidth() const { return m_loader->GetWidth(); }
+        int GetHeight() const { return m_loader->GetHeight(); }
+        GLuint GetGlTexture() const { return m_loader->GetGlTexture(); }
 
     private:
         virtual bool Prepare_InGlThread();
@@ -162,7 +205,7 @@ namespace di
         virtual bool Finish_InGlThread();
         virtual void Timeout_InGlThread();
 
-        GLubyte* m_pixels;
+        unique_ptr<BaseTextureLoader> m_loader;
     };
 
 

@@ -155,8 +155,16 @@ namespace di
     }
 
 
+    unique_ptr<PerformanceProfileData> PerformanceProfileData::s_singleton;
+
+
     void PerformanceProfileData::OutputToLog()
     {
+        if (m_items.empty())
+        {
+            return;
+        }
+
         LogInfo("========== PerformanceProfileData ==========");
         for (auto iter = m_items.begin(); iter != m_items.end(); ++iter)
         {
@@ -172,20 +180,24 @@ namespace di
     {
         unique_ptr<ThreadEventHandlers> handlers(static_cast<ThreadEventHandlers*>(arg));
 
+        const char* threadName = "";
+
         try
         {
+            threadName = handlers->threadName.c_str();
+            LogInfo("Thread '%s' started", threadName);
             if (handlers->onInit) handlers->onInit();
         }
         catch (const exception& ex)
         {
-            LogError("thread onInit caught exception: %s", ex.what());
-            LogWarn("thread will end");
+            LogError("thread '%s' onInit caught exception: %s", threadName, ex.what());
+            LogWarn("thread '%s' will end", threadName);
             return 0;
         }
         catch (...)
         {
-            LogError("thread onInit caught unknown exception");
-            LogWarn("thread will end");
+            LogError("thread '%s' onInit caught unknown exception", threadName);
+            LogWarn("thread '%s' will end", threadName);
             return 0;
         }
 
@@ -205,12 +217,12 @@ namespace di
                 catch (const exception& ex)
                 {
                     haveException = true;
-                    LogError("thread loop caught exception: %s", ex.what());
+                    LogError("thread '%s' loop caught exception: %s", threadName, ex.what());
                 }
                 catch (...)
                 {
                     haveException = true;
-                    LogError("thread loop caught unknown exception");
+                    LogError("thread '%s' loop caught unknown exception", threadName);
                 }
 
                 if (haveException)
@@ -220,12 +232,12 @@ namespace di
                     if (exceptionInConsecutive >= 3)
                     {
                         willEndThread = true;
-                        LogWarn("thread loop will end because of 3 consecutive exceptions");
+                        LogWarn("thread '%s' loop will end because of 3 consecutive exceptions", threadName);
                     }
                     else
                     {
                         willWaitMillis = 2000;
-                        LogWarn("thread loop will wait 2 seconds because of exception");
+                        LogWarn("thread '%s' loop will wait 2 seconds because of exception", threadName);
                     }
                 }
                 else
@@ -255,22 +267,28 @@ namespace di
         }
         catch (const exception& ex)
         {
-            LogError("thread onEnd caught exception: %s", ex.what());
+            LogError("thread '%s' onEnd caught exception: %s", threadName, ex.what());
         }
         catch (...)
         {
-            LogError("thread onEnd caught unknown exception");
+            LogError("thread '%s' onEnd caught unknown exception", threadName);
         }
 
         FuncCallInfoStack::DeleteThreadStack();
+
+        LogInfo("Thread '%s' ended", handlers->threadName.c_str());
         return 0;
     }
 
 
-    void StartThread(const char* name, const ThreadEventHandlers& handlers)
+    void StartThread(const ThreadEventHandlers& handlers)
     {
         ThreadEventHandlers* newHandlers = new ThreadEventHandlers(handlers);
-        SDL_CreateThread(ThreadEntry, name, newHandlers);
+        SDL_Thread* thread = SDL_CreateThread(ThreadEntry, newHandlers->threadName.c_str(), newHandlers);
+        if (!thread)
+        {
+            LogError("SDL_CreateThread('%s') failed", newHandlers->threadName.c_str());
+        }
     }
 
 
@@ -317,7 +335,7 @@ namespace di
         DI_SAVE_CALLSTACK();
 
         ThreadLockGuard lock(l);
-        SDL_CondWait((SDL_cond*)m_data, (SDL_mutex*)l.m_data);
+        SDL_CondWaitTimeout((SDL_cond*)m_data, (SDL_mutex*)l.m_data, 1000);
         func();
     }
 

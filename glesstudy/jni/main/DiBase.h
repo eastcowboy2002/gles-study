@@ -46,7 +46,7 @@
     di::PerformanceProfileGuard di_profile_guard_ ## item(#item);
 
 #define DI_PROFILE_STR(varName, itemName) \
-    di::PerformanceProfileGuard varName(itenName);
+    di::PerformanceProfileGuard varName(itemName);
 
 namespace di
 {
@@ -140,7 +140,8 @@ namespace di
         void Add(const string& item, double seconds)    { ItemData& d = m_items[item]; d.seconds += seconds; d.times++; }
         void OutputToLog();
 
-        static PerformanceProfileData& Singleton() { static PerformanceProfileData s_singleton; return s_singleton; }
+        static PerformanceProfileData& Singleton() { if (!s_singleton) { s_singleton.reset(new PerformanceProfileData()); } return *s_singleton; }
+        static void DestroySingleton() { s_singleton.reset(); }
 
     private:
         struct ItemData
@@ -150,6 +151,8 @@ namespace di
         };
 
         unordered_map<string, ItemData> m_items;
+
+        static unique_ptr<PerformanceProfileData> s_singleton;
 
         DI_DISABLE_COPY(PerformanceProfileData);
     };
@@ -171,12 +174,13 @@ namespace di
 
     struct ThreadEventHandlers
     {
+        string threadName;
         function<void()> onInit;
         function<void()> onEnd;
         function<void(bool* /*willEndThread*/, uint32_t* /*willWaitMillis*/)> onLoop;
     };
 
-    void StartThread(const char* name, const ThreadEventHandlers& handlers);
+    void StartThread(const ThreadEventHandlers& handlers);
 
 
     class ThreadLock

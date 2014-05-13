@@ -3,6 +3,7 @@
 #include "SDL_image.h"
 
 #include "di_gl_header.h"
+#include "DiResource.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -126,76 +127,6 @@ GLuint createProgram(const char* pVertexSource, const char* pFragmentSource) {
     return program;
 }
 
-// GLuint loadKtxTexture(const char* filename, int* width = NULL, int* height = NULL)
-// {
-// 	SDL_RWops* rw = SDL_RWFromFile(filename, "rb");
-// 	if (!rw)
-// 	{
-// 		SDL_Log("loadKtxTexture '%s' failed. cannot open file", filename);
-// 		return 0;
-// 	}
-// 
-// 	GLsizei size = SDL_RWsize(rw);
-// 
-// 	void* mem = SDL_malloc(size);
-// 	if (!size)
-// 	{
-// 		SDL_RWclose(rw);
-// 		SDL_Log("loadKtxTexture '%s' failed. malloc failed", filename);
-// 		return 0;
-// 	}
-// 
-// 	if (SDL_RWread(rw, mem, size, 1) != 1)
-// 	{
-// 		SDL_free(mem);
-// 		SDL_RWclose(rw);
-// 		SDL_Log("loadKtxTexture '%s' failed. read file failed", filename);
-// 		return 0;
-// 	}
-// 
-// 	GLuint tex;
-// 	GLenum target;
-// 	GLenum glerr;
-// 	GLboolean isMipmap;
-// 	KTX_dimensions dimensions;
-// 	KTX_error_code ktxErr = ktxLoadTextureM(mem, size, &tex, &target, &dimensions, &isMipmap, &glerr, 0, NULL);
-// 
-// 	SDL_free(mem);
-// 	mem = NULL;
-// 	SDL_RWclose(rw);
-// 	rw = NULL;
-// 
-// 	if (ktxErr != KTX_SUCCESS || glerr != GL_NO_ERROR)
-// 	{
-// 		SDL_Log("loadKtxTexture '%s' failed. ktx error = %d, gl error = 0x%X", filename, ktxErr, glerr);
-// 		return 0;
-// 	}
-// 
-// 	if (target != GL_TEXTURE_2D)
-// 	{
-// 		glBindTexture(target, 0);
-// 		glDeleteTextures(1, &target);
-// 		SDL_Log("loadKtxTexture '%s' failed. not GL_TEXTURE_2D", filename);
-// 		return 0;
-// 	}
-// 
-// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, isMipmap ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
-// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-// 
-// 	if (width)
-// 	{
-// 		*width = dimensions.width;
-// 	}
-// 
-// 	if (height)
-// 	{
-// 		*height = dimensions.height;
-// 	}
-// 
-// 	return tex;
-// }
 
 GLuint gProgram;
 GLuint gvPositionHandle;
@@ -235,15 +166,28 @@ void renderFrame() {
     glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     checkGlError("glClear");
 
-    glUseProgram(gProgram);
-    checkGlError("glUseProgram");
+    ResourceManager::Singleton().CheckAsyncFinishedResources();
 
-    glVertexAttribPointer(gvPositionHandle, 2, GL_FLOAT, GL_FALSE, 0, gTriangleVertices);
-    checkGlError("glVertexAttribPointer");
-    glEnableVertexAttribArray(gvPositionHandle);
-    checkGlError("glEnableVertexAttribArray");
-    glDrawArrays(GL_TRIANGLES, 0, sizeof(gTriangleVertices) / sizeof(gTriangleVertices[0]));
-    checkGlError("glDrawArrays");
+    // shared_ptr<ImageAsTexture> texture = ResourceManager::Singleton().GetResource<ImageAsTexture>("10001.ktx");
+    shared_ptr<ImageAsTexture> texture = ResourceManager::Singleton().GetResource<ImageAsTexture>("main_bg.webp");
+    // texture->SetTimeoutTicks(0);
+
+    if (texture->IsResourceOK())
+    {
+        glUseProgram(gProgram);
+        checkGlError("glUseProgram");
+
+        glVertexAttribPointer(gvPositionHandle, 2, GL_FLOAT, GL_FALSE, 0, gTriangleVertices);
+        checkGlError("glVertexAttribPointer");
+        glEnableVertexAttribArray(gvPositionHandle);
+        checkGlError("glEnableVertexAttribArray");
+        glDrawArrays(GL_TRIANGLES, 0, sizeof(gTriangleVertices) / sizeof(gTriangleVertices[0]));
+        checkGlError("glDrawArrays");
+
+        texture->UpdateTimeoutTick();
+    }
+
+    ResourceManager::Singleton().CheckTimeoutResources();
 }
 
 void onSignal(int sig)
@@ -384,12 +328,6 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 	setupGraphics(width, height);
 	checkGlError("setupGraphics");
 
-// 	if (loadKtxTexture("10001.ktx") == 0)
-// 	{
-// 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "loadKtxTexture failed");
-// 		abort();
-// 	}
-
 #if 0
     SDL_Delay(300);
 
@@ -411,74 +349,6 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
     	LOGI("%s", log.c_str());
     }
 #endif
-
-	uint64_t tick = SDL_GetPerformanceCounter();
-    SDL_Surface* t = IMG_Load("main_bg.webp");
-    // SDL_Surface* t = IMG_Load("10000.jpg");
-    // SDL_Surface* t = IMG_Load("10000.webp");
-    // SDL_Surface* t = IMG_Load("advBegin.png");
-    // SDL_Surface* t = IMG_Load("advBegin.webp");
-	if (t)
-	{
-		SDL_Log("IMG_Load OK");
-		SDL_Log("time cost: %llu ms", (SDL_GetPerformanceCounter() - tick) * 1000 / SDL_GetPerformanceFrequency());
-//		SDL_Delay(1000);
-//		SDL_Log("time cost: %llu ms", (SDL_GetPerformanceCounter() - tick) * 1000 / SDL_GetPerformanceFrequency());
-
-		GLuint textureObjOpenGLlogo;
-		glGenTextures(1, &textureObjOpenGLlogo);
-
-		glBindTexture(GL_TEXTURE_2D, textureObjOpenGLlogo);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		SDL_Log("image format: %d (0x%X)", t->format->format, t->format->format);
-		SDL_Log("image masks: 0x%X, 0x%X, 0x%X, 0x%X", t->format->Rmask, t->format->Gmask, t->format->Bmask, t->format->Amask);
-		SDL_Log("image losses: %d, %d, %d, %d", t->format->Rloss, t->format->Gloss, t->format->Bloss, t->format->Aloss);
-		SDL_Log("image shifts: %d, %d, %d, %d", t->format->Rshift, t->format->Gshift, t->format->Bshift, t->format->Ashift);
-		SDL_Log("SDL_PIXELFORMAT_RGB24 = 0x%X", SDL_PIXELFORMAT_RGB24);
-		SDL_Log("SDL_PIXELFORMAT_BGR24 = 0x%X", SDL_PIXELFORMAT_BGR24);
-		SDL_Log("SDL_PIXELFORMAT_RGB888 = 0x%X", SDL_PIXELFORMAT_RGB888);
-		SDL_Log("SDL_PIXELFORMAT_RGBA8888 = 0x%X", SDL_PIXELFORMAT_RGBA8888);
-		SDL_Log("SDL_PIXELFORMAT_BGR888 = 0x%X", SDL_PIXELFORMAT_BGR888);
-		SDL_Log("SDL_PIXELFORMAT_BGRA8888 = 0x%X", SDL_PIXELFORMAT_BGRA8888);
-		SDL_Log("SDL_PIXELFORMAT_BGRX8888 = 0x%X", SDL_PIXELFORMAT_BGRX8888);
-		SDL_Log("SDL_PIXELFORMAT_RGBX8888 = 0x%X", SDL_PIXELFORMAT_RGBX8888);
-        SDL_Log("SDL_PIXELFORMAT_ABGR8888 = 0x%X", SDL_PIXELFORMAT_ABGR8888);
-
-		bool needLock = SDL_MUSTLOCK(t);
-		if (needLock)
-		{
-			SDL_LockSurface(t);
-		}
-
-		if (t->format->format == SDL_PIXELFORMAT_RGB24)
-		{
-			SDL_Log("format RGB");
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t->w, t->h, 0, GL_RGB, GL_UNSIGNED_BYTE, t->pixels);
-			checkGlError("glTexImage2D");
-		}
-        else if (t->format->format == SDL_PIXELFORMAT_ABGR8888)
-        {
-			SDL_Log("format RGBA");
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t->w, t->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, t->pixels);
-			checkGlError("glTexImage2D");
-        }
-
-		if (needLock)
-		{
-			SDL_UnlockSurface(t);
-		}
-
-		SDL_FreeSurface(t);
-	}
-	else
-	{
-		SDL_Log("IMG_Load failed");
-		abort();
-	}
 
 	glUseProgram(gProgram);
 	checkGlError("glUseProgram");
@@ -550,8 +420,12 @@ int main(int argc, char* argv[]) // the function 'main' is actually 'SDL_main'
 		renderFrame();
 		SDL_GL_SwapWindow(window);
 
-		SDL_WaitEvent(NULL);
+		SDL_WaitEventTimeout(NULL, 1000 / 30);
 	}
+
+    ResourceManager::DestroySingleton();
+    PerformanceProfileData::Singleton().OutputToLog();
+    PerformanceProfileData::DestroySingleton();
 
     SDL_GL_MakeCurrent(nullptr, nullptr);
     SDL_GL_DeleteContext(context);
