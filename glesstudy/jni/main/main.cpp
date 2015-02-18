@@ -177,11 +177,12 @@ void renderFrame() {
         glUseProgram(gProgram);
         checkGlError("glUseProgram");
 
+        glBindTexture(GL_TEXTURE_2D, texture->GetGlTexture());
         glVertexAttribPointer(gvPositionHandle, 2, GL_FLOAT, GL_FALSE, 0, gTriangleVertices);
         checkGlError("glVertexAttribPointer");
         glEnableVertexAttribArray(gvPositionHandle);
         checkGlError("glEnableVertexAttribArray");
-        glDrawArrays(GL_TRIANGLES, 0, sizeof(gTriangleVertices) / sizeof(gTriangleVertices[0]));
+        glDrawArrays(GL_TRIANGLES, 0, sizeof(gTriangleVertices) / sizeof(gTriangleVertices[0]) / 2);
         checkGlError("glDrawArrays");
 
         texture->UpdateTimeoutTick();
