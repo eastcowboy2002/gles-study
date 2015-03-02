@@ -12,6 +12,8 @@
 #include "DiBase.h"
 
 #ifdef _DEBUG
+namespace di
+{
 inline void DbgGlErrors(const char* file, int line)
 {
     GLenum err;
@@ -20,7 +22,8 @@ inline void DbgGlErrors(const char* file, int line)
         DI_LOG_ERROR("OpenGL error 0x%X at file: %s, line: %d", err, file, line);
     }
 }
-#   define DI_DBG_CHECK_GL_ERRORS()     DbgGlErrors(__FILE__, __LINE__)
+}
+#   define DI_DBG_CHECK_GL_ERRORS()     di::DbgGlErrors(__FILE__, __LINE__)
 #else
 #   define DI_DBG_CHECK_GL_ERRORS()
 #endif

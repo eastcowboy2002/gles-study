@@ -334,11 +334,11 @@ localexit:
     /* *INDENT-ON* */
 }
 
-void
-_ftol2_sse()
-{
-    _ftol();
-}
+// void
+// _ftol2_sse()
+// {
+//     _ftol();
+// }
 
 /* 64-bit math operators for 32-bit systems */
 // see https://bugzilla.libsdl.org/show_bug.cgi?id=2537
