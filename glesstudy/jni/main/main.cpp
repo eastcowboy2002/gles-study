@@ -22,6 +22,12 @@ static void printGLString(const char *name, GLenum s) {
     LOGI("GL %s = %s\n", name, v);
 }
 
+static void printGLInteger(const char* name, GLenum s) {
+    GLint i;
+    glGetIntegerv(s, &i);
+    LOGI("%s = %d\n", name, i);
+}
+
 static void checkGlError(const char* op) {
     for (GLint error = glGetError(); error; error
             = glGetError()) {
@@ -138,6 +144,29 @@ bool setupGraphics(int w, int h) {
     printGLString("Vendor", GL_VENDOR);
     printGLString("Renderer", GL_RENDERER);
     printGLString("Extensions", GL_EXTENSIONS);
+
+    printGLInteger("GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS", GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+    printGLInteger("GL_MAX_CUBE_MAP_TEXTURE_SIZE", GL_MAX_CUBE_MAP_TEXTURE_SIZE);
+    printGLInteger("GL_MAX_FRAGMENT_UNIFORM_VECTORS", GL_MAX_FRAGMENT_UNIFORM_VECTORS);
+    printGLInteger("GL_MAX_RENDERBUFFER_SIZE", GL_MAX_RENDERBUFFER_SIZE);
+    printGLInteger("GL_MAX_TEXTURE_IMAGE_UNITS", GL_MAX_TEXTURE_IMAGE_UNITS);
+    printGLInteger("GL_MAX_TEXTURE_SIZE", GL_MAX_TEXTURE_SIZE);
+    printGLInteger("GL_MAX_VARYING_VECTORS", GL_MAX_VARYING_VECTORS);
+    printGLInteger("GL_MAX_VERTEX_ATTRIBS", GL_MAX_VERTEX_ATTRIBS);
+    printGLInteger("GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS", GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS);
+    printGLInteger("GL_MAX_VERTEX_UNIFORM_VECTORS", GL_MAX_VERTEX_UNIFORM_VECTORS);
+    // printGLInteger("GL_MAX_VIEWPORT_DIMS", GL_MAX_VIEWPORT_DIMS);
+    printGLInteger("GL_NUM_COMPRESSED_TEXTURE_FORMATS", GL_NUM_COMPRESSED_TEXTURE_FORMATS);
+    // printGLInteger("GL_NUM_SHADER_BINARY_FORMATS", GL_NUM_SHADER_BINARY_FORMATS);
+    // printGLInteger("GL_NUM_PROGRAM_BINARY_FORMATS", GL_NUM_PROGRAM_BINARY_FORMATS);
+
+    GLint maxVertexAttribs = 0;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
+    if (maxVertexAttribs < 16)
+    {
+        LOGI("maxVertexAttribs = %d is less than 16\n", maxVertexAttribs);
+        abort();
+    }
 
     LOGI("setupGraphics(%d, %d)", w, h);
     gProgram = createProgram(gVertexShader, gFragmentShader);
