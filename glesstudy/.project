@@ -11,7 +11,7 @@
 			<arguments>
 				<dictionary>
 					<key>?children?</key>
-					<value>?name?=outputEntries\|?children?=?name?=entry\\\\\\\|\\\|?name?=entry\\\\\\\|\\\|\||</value>
+					<value>?children?=?name?=entry\\\\\\\|\\\|?name?=entry\\\\\\\|\\\|\|?name?=outputEntries\||</value>
 				</dictionary>
 				<dictionary>
 					<key>?name?</key>
@@ -23,7 +23,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
-					<value>-j8 NDK_DEBUG=1</value>
+					<value>-j4</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>

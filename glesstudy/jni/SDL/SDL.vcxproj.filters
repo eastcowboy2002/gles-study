@@ -164,6 +164,12 @@
     <ClInclude Include="src\video\dummy\SDL_nullframebuffer_c.h" />
     <ClInclude Include="src\video\dummy\SDL_nullvideo.h" />
     <ClInclude Include="src\thread\windows\SDL_systhread_c.h" />
+    <ClInclude Include="src\haptic\windows\SDL_windowshaptic_c.h" />
+    <ClInclude Include="src\haptic\windows\SDL_xinputhaptic_c.h" />
+    <ClInclude Include="src\haptic\windows\SDL_dinputhaptic_c.h" />
+    <ClInclude Include="src\joystick\windows\SDL_dinputjoystick_c.h" />
+    <ClInclude Include="src\joystick\windows\SDL_windowsjoystick_c.h" />
+    <ClInclude Include="src\joystick\windows\SDL_xinputjoystick_c.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\atomic\SDL_atomic.c" />
@@ -189,12 +195,8 @@
     <ClCompile Include="src\events\SDL_windowevents.c" />
     <ClCompile Include="src\file\SDL_rwops.c" />
     <ClCompile Include="src\filesystem\windows\SDL_sysfilesystem.c" />
-    <ClCompile Include="src\haptic\windows\SDL_syshaptic.c" />
     <ClCompile Include="src\haptic\SDL_haptic.c" />
-    <ClCompile Include="src\joystick\windows\SDL_dxjoystick.c" />
-    <ClCompile Include="src\joystick\windows\SDL_mmjoystick.c" />
     <ClCompile Include="src\joystick\SDL_gamecontroller.c" />
-    <ClCompile Include="src\joystick\SDL_joystick.c" />
     <ClCompile Include="src\libm\e_atan2.c" />
     <ClCompile Include="src\libm\e_log.c" />
     <ClCompile Include="src\libm\e_pow.c" />
@@ -284,6 +286,14 @@
     <ClCompile Include="src\thread\windows\SDL_systhread.c" />
     <ClCompile Include="src\thread\windows\SDL_systls.c" />
     <ClCompile Include="src\thread\generic\SDL_syscond.c" />
+    <ClCompile Include="src\haptic\windows\SDL_windowshaptic.c" />
+    <ClCompile Include="src\haptic\windows\SDL_xinputhaptic.c" />
+    <ClCompile Include="src\haptic\windows\SDL_dinputhaptic.c" />
+    <ClCompile Include="src\joystick\windows\SDL_mmjoystick.c" />
+    <ClCompile Include="src\joystick\SDL_joystick.c" />
+    <ClCompile Include="src\joystick\windows\SDL_dinputjoystick.c" />
+    <ClCompile Include="src\joystick\windows\SDL_windowsjoystick.c" />
+    <ClCompile Include="src\joystick\windows\SDL_xinputjoystick.c" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\main\windows\version.rc" />

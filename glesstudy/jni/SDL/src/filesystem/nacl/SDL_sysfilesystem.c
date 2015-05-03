@@ -18,11 +18,25 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
+#include "../../SDL_internal.h"
+#include "SDL_error.h"
+#include "SDL_filesystem.h"
 
-extern int DirectInputHaptic_MaybeAddDevice(const DIDEVICEINSTANCE *pdidInstance);
-extern int DirectInputHaptic_MaybeRemoveDevice(const DIDEVICEINSTANCE *pdidInstance);
-extern int XInputHaptic_MaybeAddDevice(const DWORD dwUserid);
-extern int XInputHaptic_MaybeRemoveDevice(const DWORD dwUserid);
+#ifdef SDL_FILESYSTEM_NACL
 
-/* vi: set ts=4 sw=4 expandtab: */
+char *
+SDL_GetBasePath(void)
+{
+    SDL_Unsupported();
+    return NULL;
+}
+
+char *
+SDL_GetPrefPath(const char *org, const char *app)
+{
+    SDL_Unsupported();
+    return NULL;
+}
+
+#endif /* SDL_FILESYSTEM_NACL */
 

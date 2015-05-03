@@ -19,26 +19,18 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#import <UIKit/UIKit.h>
-#import <SDL_types.h>
 
-/* *INDENT-OFF* */
-@interface SDLUIAccelerationDelegate: NSObject <UIAccelerometerDelegate> {
+#ifndef _SDL_emscriptenevents_h
+#define _SDL_emscriptenevents_h
 
-	UIAccelerationValue x, y, z;
-	BOOL isRunning;
-	BOOL hasNewData;
-	
-}
+#include "SDL_emscriptenvideo.h"
 
-+(SDLUIAccelerationDelegate *)sharedDelegate;
--(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
--(void)getLastOrientation:(Sint16 *)data;
--(void)startup;
--(void)shutdown;
--(BOOL)isRunning;
--(BOOL)hasNewData;
--(void)setHasNewData:(BOOL)value;
+extern void
+Emscripten_RegisterEventHandlers(SDL_WindowData *data);
 
-@end
-/* *INDENT-ON* */
+extern void
+Emscripten_UnregisterEventHandlers(SDL_WindowData *data);
+#endif /* _SDL_emscriptenevents_h */
+
+/* vi: set ts=4 sw=4 expandtab: */
+
