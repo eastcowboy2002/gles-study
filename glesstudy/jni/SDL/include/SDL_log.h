@@ -51,7 +51,7 @@ extern "C" {
  *
  *  Messages longer than the maximum size will be truncated
  */
-#define SDL_MAX_LOG_MESSAGE 4096
+#define SDL_MAX_LOG_MESSAGE (4096 * 4)
 
 /**
  *  \brief The predefined log categories
