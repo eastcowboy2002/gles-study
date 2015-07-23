@@ -18,6 +18,9 @@
 #include <arm_neon.h>
 #endif
 
+// #include <OMXAL/OpenMAXAL.h>
+// #include <OMXAL/OpenMAXAL_Android.h>
+
 using namespace di;
 
 #define LOGI(...) SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, __VA_ARGS__)
@@ -319,7 +322,7 @@ Vec3 matrix_transform_neon(const di::Mat4& m, const di::Vec3& v)
 
 void matrix_transform_neon_4x(const float* matrices,
     const float32x4_t& vx, const float32x4_t& vy, const float32x4_t& vz,
-    float32x4_t* outVx, float32x4_t* outVy, float32x4_t* outVz)
+	float* outVx, float* outVy, float* outVz)
 {
     float32x4_t tmp1, tmp2;
 
@@ -331,7 +334,23 @@ void matrix_transform_neon_4x(const float* matrices,
     tmp1 = _mm_load_ps(matrices);
     tmp1 = _mm_mul_ps(vx, tmp1);
 
+    tmp2 = _mm_load_ps(matrices + 4);
+    tmp2 = _mm_mul_ps(vy, tmp2);
+    tmp1 = _mm_add_ps(tmp1, tmp2);
+
+    tmp2 = _mm_load_ps(matrices + 2 * 4);
+    tmp2 = _mm_mul_ps(vz, tmp2);
+    tmp1 = _mm_add_ps(tmp1, tmp2);
+
     tmp2 = _mm_load_ps(matrices + 3 * 4);
+	tmp1 = _mm_add_ps(tmp1, tmp2);
+	vst1q_f32(outVx, tmp1);
+
+    // component Y
+    tmp1 = _mm_load_ps(matrices + 4 * 4);
+    tmp1 = _mm_mul_ps(vx, tmp1);
+
+    tmp2 = _mm_load_ps(matrices + 5 * 4);
     tmp2 = _mm_mul_ps(vy, tmp2);
     tmp1 = _mm_add_ps(tmp1, tmp2);
 
@@ -339,38 +358,25 @@ void matrix_transform_neon_4x(const float* matrices,
     tmp2 = _mm_mul_ps(vz, tmp2);
     tmp1 = _mm_add_ps(tmp1, tmp2);
 
-    tmp2 = _mm_load_ps(matrices + 9 * 4);
-    *outVx = _mm_add_ps(tmp1, tmp2);
+    tmp2 = _mm_load_ps(matrices + 7 * 4);
+	tmp1 = _mm_add_ps(tmp1, tmp2);
+	vst1q_f32(outVy, tmp1);
 
-    // component Y
-    tmp1 = _mm_load_ps(matrices + 1 * 4);
+    // component Z
+    tmp1 = _mm_load_ps(matrices + 8 * 4);
     tmp1 = _mm_mul_ps(vx, tmp1);
 
-    tmp2 = _mm_load_ps(matrices + 4 * 4);
+    tmp2 = _mm_load_ps(matrices + 9 * 4);
     tmp2 = _mm_mul_ps(vy, tmp2);
-    tmp1 = _mm_add_ps(tmp1, tmp2);
-
-    tmp2 = _mm_load_ps(matrices + 7 * 4);
-    tmp2 = _mm_mul_ps(vz, tmp2);
     tmp1 = _mm_add_ps(tmp1, tmp2);
 
     tmp2 = _mm_load_ps(matrices + 10 * 4);
-    *outVy = _mm_add_ps(tmp1, tmp2);
-
-    // component Z
-    tmp1 = _mm_load_ps(matrices + 2 * 4);
-    tmp1 = _mm_mul_ps(vx, tmp1);
-
-    tmp2 = _mm_load_ps(matrices + 5 * 4);
-    tmp2 = _mm_mul_ps(vy, tmp2);
-    tmp1 = _mm_add_ps(tmp1, tmp2);
-
-    tmp2 = _mm_load_ps(matrices + 8 * 4);
     tmp2 = _mm_mul_ps(vz, tmp2);
     tmp1 = _mm_add_ps(tmp1, tmp2);
 
     tmp2 = _mm_load_ps(matrices + 11 * 4);
-    *outVz = _mm_add_ps(tmp1, tmp2);
+	tmp1 = _mm_add_ps(tmp1, tmp2);
+	vst1q_f32(outVz, tmp1);
 }
 #endif
 
@@ -396,12 +402,12 @@ void testMatrixPerformance()
     };
 
     di::Vec3 v = { -6.74947977f, 16.9563999f, 1.47899997f };
-    di::Vec3 vr = { 17.2225780f, 17.5706940f, 18.0219955f };
+    // di::Vec3 v_result = { 17.2225780f, 17.5706940f, 18.0219955f };
 
     static di::Vec3* v_from = nullptr;
     static di::Vec3* v_to = nullptr;
 
-    const int COUNT = 300000;
+    const int COUNT = 1000000;
     if (v_from == nullptr)
     {
         v_from = new di::Vec3[COUNT];
@@ -454,10 +460,10 @@ void testMatrixPerformance()
         const Mat4& m3 = m;
         const Mat4& m4 = m;
 
-    counter1 = SDL_GetPerformanceCounter();
+#ifdef WIN32
+	counter1 = SDL_GetPerformanceCounter();
     for (int i = 0; i + 4 <= COUNT; i += 4)
     {
-#ifdef WIN32
         __m128 vx = _mm_set_ps(v_from[i][0], v_from[i+1][0], v_from[i+2][0], v_from[i+3][0]);
         __m128 vy = _mm_set_ps(v_from[i][1], v_from[i+1][1], v_from[i+2][1], v_from[i+3][1]);
         __m128 vz = _mm_set_ps(v_from[i][2], v_from[i+1][2], v_from[i+2][2], v_from[i+3][2]);
@@ -491,7 +497,32 @@ void testMatrixPerformance()
         v_to[i+1][2] = outVz.m128_f32[1];
         v_to[i+2][2] = outVz.m128_f32[2];
         v_to[i+3][2] = outVz.m128_f32[3];
+	}
+	counter2 = SDL_GetPerformanceCounter();
 #else
+
+#if 1
+	float matrices[12 * 4] = {
+		m1.m_data[0], m2.m_data[0], m3.m_data[0], m4.m_data[0],
+		m1.m_data[4], m2.m_data[4], m3.m_data[4], m4.m_data[4],
+		m1.m_data[8], m2.m_data[8], m3.m_data[8], m4.m_data[8],
+		m1.m_data[12], m2.m_data[12], m3.m_data[12], m4.m_data[12],
+
+		m1.m_data[1], m2.m_data[1], m3.m_data[1], m4.m_data[1],
+		m1.m_data[5], m2.m_data[5], m3.m_data[5], m4.m_data[5],
+		m1.m_data[9], m2.m_data[9], m3.m_data[9], m4.m_data[9],
+		m1.m_data[13], m2.m_data[13], m3.m_data[13], m4.m_data[13],
+
+		m1.m_data[2], m2.m_data[2], m3.m_data[2], m4.m_data[2],
+		m1.m_data[6], m2.m_data[6], m3.m_data[6], m4.m_data[6],
+		m1.m_data[10], m2.m_data[10], m3.m_data[10], m4.m_data[10],
+		m1.m_data[14], m2.m_data[14], m3.m_data[14], m4.m_data[14]
+	};
+
+	counter1 = SDL_GetPerformanceCounter();
+
+    for (int i = 0; i + 4 <= COUNT; i += 4)
+    {
         float vx_arr[] = {v_from[i][0], v_from[i+1][0], v_from[i+2][0], v_from[i+3][0]};
         float32x4_t vx = vld1q_f32(vx_arr);
         float vy_arr[] = {v_from[i][1], v_from[i+1][1], v_from[i+2][1], v_from[i+3][1]};
@@ -499,26 +530,8 @@ void testMatrixPerformance()
         float vz_arr[] = {v_from[i][2], v_from[i+1][2], v_from[i+2][2], v_from[i+3][2]};
         float32x4_t vz = vld1q_f32(vz_arr);
 
-        float matrices[12 * 4] = {
-            m1.m_data[0], m2.m_data[0], m3.m_data[0], m4.m_data[0],
-            m1.m_data[1], m2.m_data[1], m3.m_data[1], m4.m_data[1],
-            m1.m_data[2], m2.m_data[2], m3.m_data[2], m4.m_data[2],
-            m1.m_data[4], m2.m_data[4], m3.m_data[4], m4.m_data[4],
-            m1.m_data[5], m2.m_data[5], m3.m_data[5], m4.m_data[5],
-            m1.m_data[6], m2.m_data[6], m3.m_data[6], m4.m_data[6],
-            m1.m_data[8], m2.m_data[8], m3.m_data[8], m4.m_data[8],
-            m1.m_data[9], m2.m_data[9], m3.m_data[9], m4.m_data[9],
-            m1.m_data[10], m2.m_data[10], m3.m_data[10], m4.m_data[10],
-            m1.m_data[12], m2.m_data[12], m3.m_data[12], m4.m_data[12],
-            m1.m_data[13], m2.m_data[13], m3.m_data[13], m4.m_data[13],
-            m1.m_data[14], m2.m_data[14], m3.m_data[14], m4.m_data[14]
-        };
+        matrix_transform_neon_4x(matrices, vx, vy, vz, vx_arr, vy_arr, vz_arr);
 
-        float32x4_t outVx, outVy, outVz;
-        matrix_transform_neon_4x(matrices, vx, vy, vz, &outVx, &outVy, &outVz);
-        vst1q_f32(vx_arr, outVx);
-        vst1q_f32(vy_arr, outVy);
-        vst1q_f32(vz_arr, outVz);
         v_to[i][0] = vx_arr[0];
         v_to[i+1][0] = vx_arr[1];
         v_to[i+2][0] = vx_arr[2];
@@ -530,10 +543,79 @@ void testMatrixPerformance()
         v_to[i][2] = vz_arr[0];
         v_to[i+1][2] = vz_arr[1];
         v_to[i+2][2] = vz_arr[2];
-        v_to[i+3][2] = vz_arr[3];
+		v_to[i+3][2] = vz_arr[3];
+	}
+
+	counter2 = SDL_GetPerformanceCounter();
+#else
+	// 循环之前，转序列
+	float matrices[12 * 4] = {
+		m1.m_data[0], m2.m_data[0], m3.m_data[0], m4.m_data[0],
+		m1.m_data[4], m2.m_data[4], m3.m_data[4], m4.m_data[4],
+		m1.m_data[8], m2.m_data[8], m3.m_data[8], m4.m_data[8],
+		m1.m_data[12], m2.m_data[12], m3.m_data[12], m4.m_data[12],
+
+		m1.m_data[1], m2.m_data[1], m3.m_data[1], m4.m_data[1],
+		m1.m_data[5], m2.m_data[5], m3.m_data[5], m4.m_data[5],
+		m1.m_data[9], m2.m_data[9], m3.m_data[9], m4.m_data[9],
+		m1.m_data[13], m2.m_data[13], m3.m_data[13], m4.m_data[13],
+
+		m1.m_data[2], m2.m_data[2], m3.m_data[2], m4.m_data[2],
+		m1.m_data[6], m2.m_data[6], m3.m_data[6], m4.m_data[6],
+		m1.m_data[10], m2.m_data[10], m3.m_data[10], m4.m_data[10],
+		m1.m_data[14], m2.m_data[14], m3.m_data[14], m4.m_data[14]
+	};
+
+	static std::vector<float> vec_xyz;
+	vec_xyz.resize(COUNT * 3);
+
+	for (int i = 0; i + 4 <= COUNT; i += 4)
+	{
+		vec_xyz[i * 3] = v_from[i][0];
+		vec_xyz[i * 3 + 1] = v_from[i + 1][0];
+		vec_xyz[i * 3 + 2] = v_from[i + 2][0];
+		vec_xyz[i * 3 + 3] = v_from[i + 3][0];
+		vec_xyz[i * 3 + 4] = v_from[i][1];
+		vec_xyz[i * 3 + 5] = v_from[i + 1][1];
+		vec_xyz[i * 3 + 6] = v_from[i + 2][1];
+		vec_xyz[i * 3 + 7] = v_from[i + 3][1];
+		vec_xyz[i * 3 + 8] = v_from[i][2];
+		vec_xyz[i * 3 + 9] = v_from[i + 1][2];
+		vec_xyz[i * 3 + 10] = v_from[i + 2][2];
+		vec_xyz[i * 3 + 11] = v_from[i + 3][2];
+	}
+
+	counter1 = SDL_GetPerformanceCounter();
+
+    for (int i = 0; i + 4 <= COUNT; i += 4)
+    {
+		float32x4_t vx = vld1q_f32(&vec_xyz[0] + i * 3);
+		float32x4_t vy = vld1q_f32(&vec_xyz[0] + i * 3 + 4);
+		float32x4_t vz = vld1q_f32(&vec_xyz[0] + i * 3 + 8);
+
+		matrix_transform_neon_4x(matrices, vx, vy, vz, &vec_xyz[0] + i * 3, &vec_xyz[0] + i * 3 + 4, &vec_xyz[0] + i * 3 + 8);
+	}
+
+	counter2 = SDL_GetPerformanceCounter();
+
+	for (int i = 0; i + 4 <= COUNT; i += 4)
+	{
+		v_to[i][0] = vec_xyz[i * 3];
+		v_to[i + 1][0] = vec_xyz[i * 3 + 1];
+		v_to[i + 2][0] = vec_xyz[i * 3 + 2];
+		v_to[i + 3][0] = vec_xyz[i * 3 + 3];
+		v_to[i][1] = vec_xyz[i * 3 + 4];
+		v_to[i + 1][1] = vec_xyz[i * 3 + 5];
+		v_to[i + 2][1] = vec_xyz[i * 3 + 6];
+		v_to[i + 3][1] = vec_xyz[i * 3 + 7];
+		v_to[i][2] = vec_xyz[i * 3 + 8];
+		v_to[i + 1][2] = vec_xyz[i * 3 + 9];
+		v_to[i + 2][2] = vec_xyz[i * 3 + 10];
+		v_to[i + 3][2] = vec_xyz[i * 3 + 11];
+	}
 #endif
-    }
-    counter2 = SDL_GetPerformanceCounter();
+#endif
+
     LOGI("SIMD(4x) matrix transform tooks %lld ms", (counter2 - counter1) * 1000 / SDL_GetPerformanceFrequency());
     LOGI("result [0]: %f, %f, %f", v_to[0][0], v_to[0][1], v_to[0][2]);
     LOGI("result [1]: %f, %f, %f", v_to[1][0], v_to[1][1], v_to[1][2]);

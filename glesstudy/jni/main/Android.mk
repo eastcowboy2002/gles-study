@@ -17,6 +17,7 @@ LOCAL_SRC_FILES += \
 	../SDL/src/main/android/SDL_android_main.c
 
 LOCAL_LDLIBS := -ldl -lGLESv2 -llog -landroid
+# LOCAL_LDLIBS += libOpenMAXAL
 
 LOCAL_CFLAGS := -DKTX_OPENGL_ES2=1
 LOCAL_ARM_NEON := true
